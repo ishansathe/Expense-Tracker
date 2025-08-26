@@ -4,8 +4,10 @@ slint::slint!{
         width: 400px;
         height: 300px;
         background: #f0f0f0;
-        VerticalLayout { 
+        property <string> amt;
+        callback clicked <=> submit.clicked;
 
+        VerticalLayout { 
             Rectangle {
                 width: parent.width;
                 height: 20px;
@@ -48,20 +50,24 @@ slint::slint!{
                         color: #555;
                         horizontal-alignment: center;
                     }
-                    LineEdit {
+                    amt:= LineEdit {
                         placeholder-text: "Enter cost";
                         width: 101px;
                         horizontal-alignment: center;
+                        
                     }
                 }
                 
             }
             spacing: 10px;
-            Button { 
+            submit:= Button { 
                 text: "Click me"; 
                 width: 100px;
                 height: 40px;
                 x: 150px;
+                clicked => {
+                    root.amt = amt.text;
+                }
             }
             // padding: 20px;
             Rectangle {
@@ -76,6 +82,14 @@ slint::slint!{
 
 fn main() {
 
-    Box::new().unwrap().run().unwrap();
+    // Box::new().unwrap().run().unwrap();
+
+    let obox = Box::new().unwrap();
+    // let weak_box = obox.as_weak();
+    obox.on_clicked(move || {
+        println!("Button clicked!");
+    });
+    obox.run().unwrap();
+
     println!("Hello, world!");
 }

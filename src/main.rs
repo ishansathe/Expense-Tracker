@@ -9,14 +9,11 @@ slint::slint!{
         in-out property <string> name;
         callback clicked <=> submitBtn.clicked;
 
-        // txt := Text {
-        //     text: "Name: " + root.name + ", Cost: " + root.amt;
-        //     font-size: 16px;
-        //     color: #000;
-        //     horizontal-alignment: center;
-        //     vertical-alignment: center;
-        //     y: 250px;
-        // }
+        public function _resetData() -> bool{
+            amt.text = "";
+            name.text = "";
+            return true;
+        }
         VerticalLayout { 
             Rectangle {
                 width: parent.width;
@@ -51,12 +48,7 @@ slint::slint!{
                         placeholder-text: "Enter name";
                         width: 101px;
                         horizontal-alignment: center;
-                        // accepted(text) => {
-                        //     name.text = "No";
-                        // }
-                        // public function setName() {
-                        //     root.name = name.text;
-                        // }
+
                         changed text => {
                             root.name = name.text;
                         }
@@ -73,10 +65,8 @@ slint::slint!{
                         placeholder-text: "Enter cost";
                         width: 101px;
                         horizontal-alignment: center;
-                        // text: root.amt;
-                        // public function setCost() {
-                        //     root.amt = amt.text;
-                        // }
+                        
+
                         changed text => {
                             root.amt = amt.text;
                         }
@@ -92,39 +82,19 @@ slint::slint!{
                 x: 150px;
             }
 
-            refreshBtn:= Button { 
-                text: "Refresh"; 
-                width: 100px;
-                height: 40px;
-                x: 150px;
-                clicked => {
-                    amt.text = "";
-                    name.text = "";
-                }
-            }
-
-            // padding: 20px;
             Rectangle {
                 width: parent.width;
                 height: 20px;
                 background: #cccfcc;
             }
-
-            
         }
     }
-    
 }
 
 
-
 fn main() {
-    println!("Yes");
 
-    println!("No");
-
-
-    Box::new().unwrap().run().unwrap();
+    // Box::new().unwrap().run().unwrap();
 
     let obox = Box::new().unwrap();
     let weak_box = obox.as_weak();
@@ -133,8 +103,8 @@ fn main() {
 
         let in_box = weak_box.upgrade().unwrap();
         println!("Name: {}, Amount: {}", in_box.get_name(), in_box.get_amt());
+        in_box.invoke__resetData();
 
-        // in_box.amt.text = "";
     });
     obox.run().unwrap();
 

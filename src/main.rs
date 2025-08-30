@@ -5,7 +5,7 @@ slint::slint!{
     export component Box inherits Window {
         width: 400px;
         height: 400px;
-        background: #f0f0f0;
+        background: greenyellow;
         in-out property <string> amt;
         in-out property <string> name;
         callback clicked <=> submitBtn.clicked;
@@ -25,11 +25,12 @@ slint::slint!{
             Rectangle {
                 width: parent.width;
                 height: 20px;
-                background: #ccc;
+                background: red;
             }
-
+            
             Text{
-                text: "Hello";
+                text: "Expense Tracker";
+                font-family: "Bernard MT Condensed";
                 font-size: 24px;
                 color: #333;
                 horizontal-alignment: center;
@@ -99,7 +100,7 @@ slint::slint!{
             Rectangle {
                 width: parent.width;
                 height: 20px;
-                background: #cccfcc;
+                background: red;
             }
         }
     }

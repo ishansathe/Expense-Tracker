@@ -1,4 +1,3 @@
-
 slint::slint!{
     import { Button, LineEdit } from "std-widgets.slint";
     export component Box inherits Window {
@@ -9,14 +8,19 @@ slint::slint!{
         in-out property <string> name;
         callback clicked <=> submitBtn.clicked;
 
-        // txt := Text {
-        //     text: "Name: " + root.name + ", Cost: " + root.amt;
-        //     font-size: 16px;
-        //     color: #000;
-        //     horizontal-alignment: center;
-        //     vertical-alignment: center;
-        //     y: 250px;
-        // }
+        public function submit() {
+            name.setName();
+            amt.setCost();
+            txt.text = "Name: " + root.name + ", Cost: " + root.amt;
+        }
+        txt := Text {
+            text: "Name: " + root.name + ", Cost: " + root.amt;
+            font-size: 16px;
+            color: #000;
+            horizontal-alignment: center;
+            vertical-alignment: center;
+            y: 250px;
+        }
         VerticalLayout { 
             Rectangle {
                 width: parent.width;
@@ -51,13 +55,10 @@ slint::slint!{
                         placeholder-text: "Enter name";
                         width: 101px;
                         horizontal-alignment: center;
-                        // accepted(text) => {
-                        //     name.text = "No";
-                        // }
-                        // public function setName() {
-                        //     root.name = name.text;
-                        // }
-                        changed text => {
+                        accepted(text) => {
+                            name.text = "No";
+                        }
+                        public function setName() {
                             root.name = name.text;
                         }
                     }
@@ -74,10 +75,7 @@ slint::slint!{
                         width: 101px;
                         horizontal-alignment: center;
                         // text: root.amt;
-                        // public function setCost() {
-                        //     root.amt = amt.text;
-                        // }
-                        changed text => {
+                        public function setCost() {
                             root.amt = amt.text;
                         }
                     }
@@ -90,19 +88,13 @@ slint::slint!{
                 width: 100px;
                 height: 40px;
                 x: 150px;
-            }
-
-            refreshBtn:= Button { 
-                text: "Refresh"; 
-                width: 100px;
-                height: 40px;
-                x: 150px;
                 clicked => {
+                    root.submit();
                     amt.text = "";
-                    name.text = "";
                 }
             }
 
+       
             // padding: 20px;
             Rectangle {
                 width: parent.width;
@@ -112,31 +104,8 @@ slint::slint!{
 
             
         }
+        
+        
     }
     
-}
-
-
-
-fn main() {
-    println!("Yes");
-
-    println!("No");
-
-
-    Box::new().unwrap().run().unwrap();
-
-    let obox = Box::new().unwrap();
-    let weak_box = obox.as_weak();
-    obox.on_clicked(move || {
-        println!("Button clicked!");
-
-        let in_box = weak_box.upgrade().unwrap();
-        println!("Name: {}, Amount: {}", in_box.get_name(), in_box.get_amt());
-
-        // in_box.amt.text = "";
-    });
-    obox.run().unwrap();
-
-    println!("Hello, world!");
 }

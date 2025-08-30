@@ -1,22 +1,23 @@
-
 slint::slint!{
+
     import { Button, LineEdit } from "std-widgets.slint";
     export component Box inherits Window {
         width: 400px;
         height: 300px;
         background: #f0f0f0;
-        in-out property <string> amt;
-        in-out property <string> name;
-        callback clicked <=> submitBtn.clicked;
 
-        // txt := Text {
-        //     text: "Name: " + root.name + ", Cost: " + root.amt;
-        //     font-size: 16px;
-        //     color: #000;
-        //     horizontal-alignment: center;
-        //     vertical-alignment: center;
-        //     y: 250px;
-        // }
+        in property <string> amt : amt.text;
+
+        callback clicked <=> submitBtn.clicked;
+        
+        /* 
+        callback returnText() -> string;
+        returnText() => {
+            return amt.text;
+        }
+        */
+
+
         VerticalLayout { 
             Rectangle {
                 width: parent.width;
@@ -51,14 +52,8 @@ slint::slint!{
                         placeholder-text: "Enter name";
                         width: 101px;
                         horizontal-alignment: center;
-                        // accepted(text) => {
-                        //     name.text = "No";
-                        // }
-                        // public function setName() {
-                        //     root.name = name.text;
-                        // }
-                        changed text => {
-                            root.name = name.text;
+                        accepted(text) => {
+                            name.text = "No";
                         }
                     }
                 }
@@ -73,36 +68,38 @@ slint::slint!{
                         placeholder-text: "Enter cost";
                         width: 101px;
                         horizontal-alignment: center;
-                        // text: root.amt;
-                        // public function setCost() {
-                        //     root.amt = amt.text;
-                        // }
-                        changed text => {
-                            root.amt = amt.text;
-                        }
+                        text: "asd";
                     }
+
+                    
                 }
                 
             }
+
+            // submitBstn:= Button { 
+            //     text: "Click me"; 
+            //     width: 100px;
+            //     height: 40px;
+            //     // x: 150px;
+            //     clicked => {
+            //         amt.text = "";
+            //         // root.returnText();
+            //     }
+            // }
+
             spacing: 10px;
             submitBtn:= Button { 
                 text: "Click me"; 
                 width: 100px;
                 height: 40px;
                 x: 150px;
-            }
-
-            refreshBtn:= Button { 
-                text: "Refresh"; 
-                width: 100px;
-                height: 40px;
-                x: 150px;
                 clicked => {
-                    amt.text = "";
-                    name.text = "";
+                    // amt.text = "";
+                    // root.returnText();
                 }
             }
 
+       
             // padding: 20px;
             Rectangle {
                 width: parent.width;
@@ -112,31 +109,8 @@ slint::slint!{
 
             
         }
+        
+        
     }
     
-}
-
-
-
-fn main() {
-    println!("Yes");
-
-    println!("No");
-
-
-    Box::new().unwrap().run().unwrap();
-
-    let obox = Box::new().unwrap();
-    let weak_box = obox.as_weak();
-    obox.on_clicked(move || {
-        println!("Button clicked!");
-
-        let in_box = weak_box.upgrade().unwrap();
-        println!("Name: {}, Amount: {}", in_box.get_name(), in_box.get_amt());
-
-        // in_box.amt.text = "";
-    });
-    obox.run().unwrap();
-
-    println!("Hello, world!");
 }

@@ -106,6 +106,7 @@ slint::slint!{
     }
 }
 
+mod file_mgmt;
 
 fn main() {
 
@@ -130,6 +131,11 @@ fn main() {
                 in_box.get_name(), in_box.get_amt()
             );
             in_box.invoke_changeInfo(info_text.into());
+
+            file_mgmt::write_to_files(
+                in_box.get_name().into(), 
+                in_box.get_amt().into()
+            );
         }
 
         in_box.invoke__resetData();

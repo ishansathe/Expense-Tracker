@@ -1,7 +1,7 @@
 
 slint::slint!{
     import { Button, LineEdit } from "std-widgets.slint";
-    import { Buttons } from "C:\\Users\\ACER\\Strongest\\expense_tracker\\src\\ok.slint";
+    import { Total } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/view_total.slint";
     export component Box inherits Window {
         width: 400px;
         height: 400px;
@@ -9,6 +9,8 @@ slint::slint!{
         in-out property <string> amt;
         in-out property <string> name;
         callback clicked <=> submitBtn.clicked;
+
+        
 
         public function _resetData() -> bool{
             amt.text = "";

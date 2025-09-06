@@ -19,12 +19,10 @@ slint::slint!{
             return true;
         }
 
-        Rectangle{
+        SideBarMenu{
             x: parent.x;
             y: parent.y;
-            width: 100px;
             height: parent.height;
-            background: green;
         }
         
         public function changeInfo(newText: string) -> bool {

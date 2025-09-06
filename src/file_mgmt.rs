@@ -1,11 +1,9 @@
 
 use std::fs::{OpenOptions};
 use std::io::Write;
-use std::fs;
 
 pub fn write_to_files (name: String, cost: String) {
 
-    
     let mut item_name_file = OpenOptions::new()
         .read(true)
         .append(true)
@@ -14,7 +12,7 @@ pub fn write_to_files (name: String, cost: String) {
 
     let mut item_cost_file = OpenOptions::new()
         .read(true)
-        .append(true)
+        .append(true) //appends instead of overwriting.
         .create(true)
         .open("ItemCosts.txt").unwrap();
 

@@ -1,10 +1,18 @@
 // import {  } from "std-widgets.slint";
 
-export component Total inherits Window{
-    Text {
+export component Total inherits Rectangle{
+    width: 500px;
+    height: 500px;
+    background: black;
+    
+    Rectangle {
         width: 200px;
         height: 200px;
-
-        text: "Message";
+        background: green;
+        Text {
+            color: white;
+            text: "Message";
+        }
     }
+    
 }

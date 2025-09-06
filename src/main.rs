@@ -2,15 +2,16 @@
 slint::slint!{
     import { Button, LineEdit } from "std-widgets.slint";
     import { Total } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/view_total.slint";
+    import { SideBarMenu } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/menu.slint";
     export component Box inherits Window {
-        width: 400px;
+        width: 600px;
         height: 400px;
-        background: greenyellow;
+        background: #e6f5e6;
         in-out property <string> amt;
         in-out property <string> name;
         callback clicked <=> submitBtn.clicked;
 
-        
+
 
         public function _resetData() -> bool{
             amt.text = "";
@@ -18,25 +19,42 @@ slint::slint!{
             return true;
         }
 
+        Rectangle{
+            x: parent.x;
+            y: parent.y;
+            width: 100px;
+            height: parent.height;
+            background: green;
+        }
+        
         public function changeInfo(newText: string) -> bool {
             info.text = newText;
             return true;
         }
 
-        VerticalLayout { 
+        home:= VerticalLayout { 
+            x: parent.x + 100 * 1px;
+            y: parent.y;
+
+            // For some reason, this is giving parent.width - 100 as error by reading it as parent.width-100
+            // So I'll change it another way.
+            width: 500px;
+            spacing: 10px;
+
             Rectangle {
                 width: parent.width;
                 height: 20px;
-                background: red;
+                background: #023602;
             }
-            
+
             Text{
                 text: "Expense Tracker";
-                font-family: "Bernard MT Condensed";
-                font-size: 24px;
-                color: #333;
+                font-family: "Gill Sans Ultra Bold Condensed";
+                font-size: 28px;
+                color: #548054;
                 horizontal-alignment: center;
                 vertical-alignment: center;
+                height: 72px;
             }
             Text {
                 text: "Enter expense information below:";
@@ -50,9 +68,10 @@ slint::slint!{
                 VerticalLayout {
                     Text{
                         text: "Name";
-                        font-size: 16px;
-                        color: #555;
+                        font-size: 18px;
+                        color: #436b41;
                         horizontal-alignment: center;
+                        font-family: "Century";
                     }
                     name:= LineEdit {
                         placeholder-text: "Enter name";
@@ -67,9 +86,10 @@ slint::slint!{
                 VerticalLayout {
                     Text{
                         text: "Cost";
-                        font-size: 16px;
-                        color: #555;
+                        font-size: 18px;
+                        color: #436b41;
                         horizontal-alignment: center;
+                        font-family: "Century";
                     }
                     amt:= LineEdit {
                         placeholder-text: "Enter cost";
@@ -84,25 +104,28 @@ slint::slint!{
                 }
                 
             }
-            spacing: 10px;
             submitBtn:= Button { 
                 text: "Click me"; 
                 width: 100px;
                 height: 40px;
-                x: 150px;
+                x: parent.x + 100px;
             }
 
             info:= Text {
                 horizontal-alignment: center;
-                font-size: 16px;
-                text: "Nothing yet added!";
+                font-family: "Bahnschrift Condensed";
                 font-weight: 500;
+                font-size: 16px;
+                vertical-alignment: center;
+                text: "Nothing yet added!";
+                height: 48px;
+                color: #0f9407;
             }
 
             Rectangle {
                 width: parent.width;
                 height: 20px;
-                background: red;
+                background: #023602;
             }
         }
     }

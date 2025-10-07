@@ -3,6 +3,7 @@ slint::slint!{
     import { Button, LineEdit } from "std-widgets.slint";
     import { Total } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/view_total.slint";
     import { SideBarMenu } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/menu.slint";
+    // import {SideBarMenu} from "./slint_files/menu.slint";
     export component Box inherits Window {
         width: 600px;
         height: 400px;

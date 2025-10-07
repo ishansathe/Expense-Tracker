@@ -1,5 +1,146 @@
 
+import { Button } from "std-widgets.slint";
+import {CustomButton } from "custom_button.slint";
+
 export component SideBarMenu inherits Rectangle {
     width: 100px;
     background: green;
+    Rectangle {
+        x: 0;
+        y: 0;
+        width: 100px;
+        height: 50px;
+        background: #065F18;
+        Text {
+            horizontal-alignment: center;
+            color: white;
+            font-size: 11px;
+            text: "Expense Tracker\nv1.0";
+        }
+    }
+
+    // Rectangle {
+    //     in-out property <string> text <=> mark_expenses.text;
+    //     x: 0;
+    //     y: 50px;
+    //     width: 100px;
+    //     height: 50px;
+    //     background: tch.pressed ? #023602 : #e6f5e6;
+    //     mark_expenses := Text{
+    //         color: tch.pressed ? white : #548054;
+    //         font-family: "Constantia Bold";
+    //         font-size: 13px;
+    //         horizontal-alignment: center;
+    //         text: "Mark\nExpenses";
+    //     }
+
+    //     tch := TouchArea{
+    //         clicked => {view.active = false;}
+    //     }
+    // }
+
+    mark:= CustomButton{
+        x: 0;
+        y: 50px;
+        text: "Mark Expenses";
+        TouchArea {
+            clicked => {
+                mark.active = true;
+                view.active = false;
+                calc.active = false;
+                extra.active = false;
+            }
+        }
+    }
+
+    view:= CustomButton {
+        x: 0;
+        y: 100px;
+        text: "View Expenses";
+        TouchArea {
+            clicked => {
+                mark.active = false;
+                view.active = true;
+                calc.active = false;
+                extra.active = false;
+            }
+        }
+    }
+
+    calc := CustomButton {
+        x: 0;
+        y: 150px;
+        text: "Calculate Total";
+        TouchArea {
+            clicked => {
+                mark.active = false;
+                view.active = false;
+                calc.active = true;
+                extra.active = false;
+            }
+        }
+    }
+
+    extra := CustomButton {
+        x: 0;
+        y: 200px;
+        text: "";
+        TouchArea {
+            clicked => {
+                mark.active = false;
+                view.active = false;
+                calc.active = false;
+                extra.active = true;
+            }
+        }
+    }
+
+    // Text {
+    //     x:0;
+    //     y:50px;
+    //     color: white;
+    //     text: "Marking expenses";
+    //     horizontal-alignment: center;
+    //     width: 100px;
+    //     height: 50px;
+    //     Button {
+    //         background: blue;
+    //         x: 0;
+    //         y: 50px;
+    //         width: 100px;
+    //         height: 50px;
+    //     }
+    // }
+    
+    
+
+    // Text {
+    //     x: 0;
+    //     y: 50px;
+    //     wrap: word-wrap;
+    //     Button {
+    //         text: "Marking expenses.";
+    //         width: 100px;
+    //     }
+    // }
+    // Button {
+    //     text: "View Expenses";
+    // }
+    // Button {
+    //     text: "Total Expenses";
+    // }
+
+    Rectangle {
+        x: parent.x;
+        y: 350px;
+        width: 100px;
+        height: 50px;
+        background: #065F18;
+        Text {
+            horizontal-alignment: center;
+            color: white;
+            font-size: 10px;
+            text: "@isuboi";
+        }
+    }
 }

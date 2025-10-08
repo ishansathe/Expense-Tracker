@@ -2,12 +2,10 @@
 import { Button } from "std-widgets.slint";
 import {CustomButton } from "custom_button.slint";
 
-export component SideBarMenu inherits Rectangle {
-    width: 100px;
-    background: green;
+export component TopCredits inherits Rectangle{
     Rectangle {
-        x: 0;
-        y: 0;
+        x: parent.x;
+        y: parent.y;
         width: 100px;
         height: 50px;
         background: #065F18;
@@ -18,37 +16,61 @@ export component SideBarMenu inherits Rectangle {
             text: "Expense Tracker\nv1.0";
         }
     }
+}
 
-    // Rectangle {
-    //     in-out property <string> text <=> mark_expenses.text;
-    //     x: 0;
-    //     y: 50px;
-    //     width: 100px;
-    //     height: 50px;
-    //     background: tch.pressed ? #023602 : #e6f5e6;
-    //     mark_expenses := Text{
-    //         color: tch.pressed ? white : #548054;
-    //         font-family: "Constantia Bold";
-    //         font-size: 13px;
-    //         horizontal-alignment: center;
-    //         text: "Mark\nExpenses";
-    //     }
 
-    //     tch := TouchArea{
-    //         clicked => {view.active = false;}
-    //     }
-    // }
+export component BottomCredits inherits Rectangle{
+    Rectangle {
+        x: parent.x;
+        y: 350px;
+        width: 100px;
+        height: 50px;
+        background: #065F18;
+        Text {
+            horizontal-alignment: center;
+            color: white;
+            font-size: 11px;
+            text: "@isuboi";
+        }
+    }
+}
 
+export component ButtonList inherits Rectangle{
+
+    function setActive(index: int) {
+        if(index == 1){
+            mark.active = true;
+            view.active = false;
+            calc.active = false;
+            extra.active = false;
+        }
+        if(index == 2){
+            mark.active = false;
+            view.active = true;
+            calc.active = false;
+            extra.active = false;
+        }
+        if(index == 3){
+            mark.active = false;
+            view.active = false;
+            calc.active = true;
+            extra.active = false;
+        }
+    }
+
+    // It seems as though text is automatically added to the 'Customised Button'
     mark:= CustomButton{
         x: 0;
         y: 50px;
         text: "Mark Expenses";
-        TouchArea {
+        callback clicked();
+        clicked => {
+            touch-area.clicked();
+        }
+
+        touch-area:= TouchArea {
             clicked => {
-                mark.active = true;
-                view.active = false;
-                calc.active = false;
-                extra.active = false;
+                setActive(1)
             }
         }
     }
@@ -59,10 +81,7 @@ export component SideBarMenu inherits Rectangle {
         text: "View Expenses";
         TouchArea {
             clicked => {
-                mark.active = false;
-                view.active = true;
-                calc.active = false;
-                extra.active = false;
+                setActive(2)
             }
         }
     }
@@ -73,10 +92,7 @@ export component SideBarMenu inherits Rectangle {
         text: "Calculate Total";
         TouchArea {
             clicked => {
-                mark.active = false;
-                view.active = false;
-                calc.active = true;
-                extra.active = false;
+                setActive(3)
             }
         }
     }
@@ -87,60 +103,8 @@ export component SideBarMenu inherits Rectangle {
         text: "";
         TouchArea {
             clicked => {
-                mark.active = false;
-                view.active = false;
-                calc.active = false;
-                extra.active = true;
+                setActive(4)
             }
-        }
-    }
-
-    // Text {
-    //     x:0;
-    //     y:50px;
-    //     color: white;
-    //     text: "Marking expenses";
-    //     horizontal-alignment: center;
-    //     width: 100px;
-    //     height: 50px;
-    //     Button {
-    //         background: blue;
-    //         x: 0;
-    //         y: 50px;
-    //         width: 100px;
-    //         height: 50px;
-    //     }
-    // }
-    
-    
-
-    // Text {
-    //     x: 0;
-    //     y: 50px;
-    //     wrap: word-wrap;
-    //     Button {
-    //         text: "Marking expenses.";
-    //         width: 100px;
-    //     }
-    // }
-    // Button {
-    //     text: "View Expenses";
-    // }
-    // Button {
-    //     text: "Total Expenses";
-    // }
-
-    Rectangle {
-        x: parent.x;
-        y: 350px;
-        width: 100px;
-        height: 50px;
-        background: #065F18;
-        Text {
-            horizontal-alignment: center;
-            color: white;
-            font-size: 10px;
-            text: "@isuboi";
         }
     }
 }

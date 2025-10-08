@@ -2,8 +2,9 @@
 slint::slint!{
     import { Button, LineEdit } from "std-widgets.slint";
     import { Total } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/view_total.slint";
-    import { SideBarMenu } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/menu.slint";
-    // import {SideBarMenu} from "./slint_files/menu.slint";
+    import { TopCredits, BottomCredits, ButtonList } from "src/slint_files/menu.slint";
+    import { CustomButton } from "src/slint_files/custom_button.slint";
+
     export component Box inherits Window {
         width: 600px;
         height: 400px;
@@ -13,19 +14,50 @@ slint::slint!{
         callback clicked <=> submitBtn.clicked;
 
 
-
         public function _resetData() -> bool{
             amt.text = "";
             name.text = "";
             return true;
         }
 
-        SideBarMenu{
-            x: parent.x;
-            y: parent.y;
+        SideBarMenu:= Rectangle {
+            x: 0;
+            y: 0;
+            width: 100px;
             height: parent.height;
+            background: #86C887;
+            TopCredits{}
+
+            mark := CustomButton {
+                x: 0;
+                y: 50px;
+                text: "Mark Expenses";
+                TouchArea {
+                    clicked => {
+                        mark.active = true;
+                        home.visible = true;
+                        view.active = false;
+                    }
+                }
+            }
+
+            view := CustomButton {
+                x:0;
+                y:100px;
+                text: "View Expenses";
+                TouchArea {
+                    clicked => {
+                        view.active = true;
+                        home.visible = false;
+                        mark.active = false;
+                    }
+                }
+            }
+
+            BottomCredits {}
         }
-        
+
+
         public function changeInfo(newText: string) -> bool {
             info.text = newText;
             return true;

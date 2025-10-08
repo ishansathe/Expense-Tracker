@@ -1,21 +1,15 @@
 
 export component CustomButton inherits Rectangle {
-    in-out property <string> text <=> mark_expenses.text;
+    in-out property <string> text <=> txt.text;
     in-out property <bool> active;
     width: 100px;
     height: 50px;
     
-    background: active ? #489d48 : tch.pressed ? #6ec06e : #023602;
-    mark_expenses := Text{
-        color: active ? white : tch.pressed ? white : #548054;
+    background: active ? #489d48 :  #023602;
+    txt := Text{
+        color: active ? white : #548054;
         font-family: "Constantia Bold";
         font-size: 13px;
         horizontal-alignment: center;
-    }
-
-    tch := TouchArea{   
-        clicked => {
-            active = !active;
-        }
     }
 }

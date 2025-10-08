@@ -1,0 +1,102 @@
+import { Button } from "std-widgets.slint";
+import { Amt, Name } from "inputs.slint";
+
+export component MarkPage inherits VerticalLayout { 
+    // here, there are no parents. Only root within which this component will be used.
+    // Thus, 'parent' was replaced by 'root'
+    x: 100px;
+    y: 0;
+
+    // For some reason, this is giving parent.width - 100 as error by reading it as parent.width-100
+    // So I'll change it another way.
+    width: 500px;
+    spacing: 10px;
+
+    in-out property <string> item_name;
+    in-out property <string> item_cost;
+    callback submit <=> submitBtn.clicked;
+    in-out property <string> info <=> info.text;
+    callback resetFields();
+
+    resetFields() => {
+        item.i_name = "";
+        cost.amount = "";
+    }
+
+    Rectangle {
+        width: parent.width;
+        height: 20px;
+        background: #023602;
+    }
+
+    Text{
+        text: "Expense Tracker";
+        font-family: "Gill Sans Ultra Bold Condensed";
+        font-size: 28px;
+        color: #548054;
+        horizontal-alignment: center;
+        vertical-alignment: center;
+        height: 72px;
+    }
+    Text {
+        text: "Enter expense information below:";
+        font-size: 20px;
+        vertical-alignment: center;
+        horizontal-alignment: center;
+    }
+    HorizontalLayout {
+        alignment: center;
+        spacing: 66px;
+
+        /* 
+        Components for collecting item name and cost have been modularized.
+        Non-interactive code has been sent to the modules.
+        Code that interacts with components of this module are kept here.  
+        */
+
+        item:= Name {
+            // This is a callback function that checks on any change on value of 'i_name' property.
+            changed i_name => {
+
+                // The value of this component's 'i_name' property is assigned 
+                // to the root component's 'name' property.
+                root.item_name = self.i_name;
+            }
+        }
+
+        cost:= Amt {
+            // This is a callback function that checks on any change on value of 'amount' property.
+            changed amount  => {
+
+                // The value of this component's 'amount' property is assigned 
+                // to the root component's 'amt' property.
+                root.item_cost = self.amount;
+            }
+        }
+        
+    }
+    submitBtn:= Button { 
+        text: "Click me"; 
+        width: 100px;
+        height: 40px;
+        x: parent.x + 100px;
+    }
+
+    info:= Text {
+        horizontal-alignment: center;
+        font-family: "Bahnschrift Condensed";
+        font-weight: 500;
+        font-size: 16px;
+        vertical-alignment: center;
+        text: "Nothing yet added!";
+        height: 48px;
+        color: #0f9407;
+    }
+
+    Rectangle {
+        width: parent.width;
+        height: 20px;
+        background: #023602;
+    }
+}
+        

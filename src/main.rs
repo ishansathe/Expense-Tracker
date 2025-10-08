@@ -1,9 +1,9 @@
 
 slint::slint!{
     import { Button, LineEdit } from "std-widgets.slint";
-    import { Total } from "C:/Users/ACER/Strongest/expense_tracker/src/slint_files/view_total.slint";
-    import { TopCredits, BottomCredits, ButtonList } from "src/slint_files/menu.slint";
+    import { TopCredits, BottomCredits } from "src/slint_files/menu.slint";
     import { CustomButton } from "src/slint_files/custom_button.slint";
+    import { MarkPage } from "src/slint_files/Mark_Expenses/layout_text_button.slint";
 
     export component Box inherits Window {
         width: 600px;
@@ -11,13 +11,11 @@ slint::slint!{
         background: #e6f5e6;
         in-out property <string> amt;
         in-out property <string> name;
-        callback clicked <=> submitBtn.clicked;
+        callback clicked <=> markpage.submit;
 
 
-        public function _resetData() -> bool{
-            amt.text = "";
-            name.text = "";
-            return true;
+        public function _resetData(){
+            markpage.resetFields();
         }
 
         SideBarMenu:= Rectangle {
@@ -26,6 +24,7 @@ slint::slint!{
             width: 100px;
             height: parent.height;
             background: #86C887;
+
             TopCredits{}
 
             mark := CustomButton {
@@ -35,7 +34,7 @@ slint::slint!{
                 TouchArea {
                     clicked => {
                         mark.active = true;
-                        home.visible = true;
+                        markpage.visible = true;
                         view.active = false;
                     }
                 }
@@ -48,7 +47,7 @@ slint::slint!{
                 TouchArea {
                     clicked => {
                         view.active = true;
-                        home.visible = false;
+                        markpage.visible = false;
                         mark.active = false;
                     }
                 }
@@ -59,106 +58,19 @@ slint::slint!{
 
 
         public function changeInfo(newText: string) -> bool {
-            info.text = newText;
+            markpage.info = newText;
             return true;
         }
 
-        home:= VerticalLayout { 
-            x: parent.x + 100 * 1px;
-            y: parent.y;
-
-            // For some reason, this is giving parent.width - 100 as error by reading it as parent.width-100
-            // So I'll change it another way.
-            width: 500px;
-            spacing: 10px;
-
-            Rectangle {
-                width: parent.width;
-                height: 20px;
-                background: #023602;
+        markpage:= MarkPage {
+            changed item_name => {
+                root.name = self.item_name;
             }
-
-            Text{
-                text: "Expense Tracker";
-                font-family: "Gill Sans Ultra Bold Condensed";
-                font-size: 28px;
-                color: #548054;
-                horizontal-alignment: center;
-                vertical-alignment: center;
-                height: 72px;
-            }
-            Text {
-                text: "Enter expense information below:";
-                font-size: 20px;
-                vertical-alignment: center;
-                horizontal-alignment: center;
-            }
-            HorizontalLayout {
-                alignment: center;
-                spacing: 66px;
-                VerticalLayout {
-                    Text{
-                        text: "Name";
-                        font-size: 18px;
-                        color: #436b41;
-                        horizontal-alignment: center;
-                        font-family: "Century";
-                    }
-                    name:= LineEdit {
-                        placeholder-text: "Enter name";
-                        width: 101px;
-                        horizontal-alignment: center;
-
-                        changed text => {
-                            root.name = name.text;
-                        }
-                    }
-                }
-                VerticalLayout {
-                    Text{
-                        text: "Cost";
-                        font-size: 18px;
-                        color: #436b41;
-                        horizontal-alignment: center;
-                        font-family: "Century";
-                    }
-                    amt:= LineEdit {
-                        placeholder-text: "Enter cost";
-                        width: 101px;
-                        horizontal-alignment: center;
-                        input-type: number;
-
-                        changed text => {
-                            root.amt = amt.text;
-                        }
-                    }
-                }
-                
-            }
-            submitBtn:= Button { 
-                text: "Click me"; 
-                width: 100px;
-                height: 40px;
-                x: parent.x + 100px;
-            }
-
-            info:= Text {
-                horizontal-alignment: center;
-                font-family: "Bahnschrift Condensed";
-                font-weight: 500;
-                font-size: 16px;
-                vertical-alignment: center;
-                text: "Nothing yet added!";
-                height: 48px;
-                color: #0f9407;
-            }
-
-            Rectangle {
-                width: parent.width;
-                height: 20px;
-                background: #023602;
+            changed item_cost => {
+                root.amt = self.item_cost;
             }
         }
+
     }
 }
 

@@ -1,7 +1,4 @@
 
-import { Button } from "std-widgets.slint";
-import {CustomButton } from "custom_button.slint";
-
 export component TopCredits inherits Rectangle{
     Rectangle {
         x: parent.x;
@@ -35,76 +32,3 @@ export component BottomCredits inherits Rectangle{
     }
 }
 
-export component ButtonList inherits Rectangle{
-
-    function setActive(index: int) {
-        if(index == 1){
-            mark.active = true;
-            view.active = false;
-            calc.active = false;
-            extra.active = false;
-        }
-        if(index == 2){
-            mark.active = false;
-            view.active = true;
-            calc.active = false;
-            extra.active = false;
-        }
-        if(index == 3){
-            mark.active = false;
-            view.active = false;
-            calc.active = true;
-            extra.active = false;
-        }
-    }
-
-    // It seems as though text is automatically added to the 'Customised Button'
-    mark:= CustomButton{
-        x: 0;
-        y: 50px;
-        text: "Mark Expenses";
-        callback clicked();
-        clicked => {
-            touch-area.clicked();
-        }
-
-        touch-area:= TouchArea {
-            clicked => {
-                setActive(1)
-            }
-        }
-    }
-
-    view:= CustomButton {
-        x: 0;
-        y: 100px;
-        text: "View Expenses";
-        TouchArea {
-            clicked => {
-                setActive(2)
-            }
-        }
-    }
-
-    calc := CustomButton {
-        x: 0;
-        y: 150px;
-        text: "Calculate Total";
-        TouchArea {
-            clicked => {
-                setActive(3)
-            }
-        }
-    }
-
-    extra := CustomButton {
-        x: 0;
-        y: 200px;
-        text: "";
-        TouchArea {
-            clicked => {
-                setActive(4)
-            }
-        }
-    }
-}

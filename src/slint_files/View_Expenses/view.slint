@@ -1,0 +1,46 @@
+
+import { ScrollView } from "std-widgets.slint";
+export component ViewPage inherits Rectangle {
+
+    // Will become visible when 'View Expenses' button is clicked on the GUI.
+    visible: false;
+
+
+    Rectangle {
+        x: 100px;
+        y: 0;
+        width: 500px;
+        height: 20px;
+        background: #023602;
+    }
+
+    Text{
+        x: 100px;
+        y: 38px;
+        width: 500px;
+        text: "Expense Tracker";
+        font-family: "Gill Sans Ultra Bold Condensed";
+        font-size: 28px;
+        color: #548054;
+        horizontal-alignment: center;
+    }
+
+    ScrollView {
+
+    }
+
+    Rectangle {
+
+        /* These 3 values because
+            - 100px away from x (skipping the sidebar)
+            - 380px away from y. Total 400, 20px reduction on height of the rectangle
+            - 500px of width. (Using parent.width brings some unknown issues.) Whole window is of size 600px.
+        */ 
+        x: 100px;
+        y: 380px;
+        width: 500px;
+
+        height: 20px;
+        background: #023602;
+    }
+}

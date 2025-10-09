@@ -2,6 +2,8 @@
 use std::fs::{OpenOptions};
 use std::io::Write;
 
+
+// This function is used to write Item name and cost to a file.
 pub fn write_to_files (name: String, cost: String) {
 
     let mut item_name_file = OpenOptions::new()

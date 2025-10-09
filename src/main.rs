@@ -4,6 +4,7 @@ slint::slint!{
     import { TopCredits, BottomCredits } from "src/slint_files/menu.slint";
     import { CustomButton } from "src/slint_files/custom_button.slint";
     import { MarkPage } from "src/slint_files/Mark_Expenses/layout_text_button.slint";
+    import { ViewPage } from "src/slint_files/View_Expenses/view.slint";
 
     export component Box inherits Window {
         width: 600px;
@@ -12,6 +13,8 @@ slint::slint!{
         in-out property <string> amt;
         in-out property <string> name;
         callback clicked <=> markpage.submit;
+
+        callback showExpenses <=> view_btn_touch.clicked;
 
 
         public function _resetData(){
@@ -34,8 +37,9 @@ slint::slint!{
                 TouchArea {
                     clicked => {
                         mark.active = true;
-                        markpage.visible = true;
                         view.active = false;
+                        markpage.visible = true;
+                        viewpage.visible = false;
                     }
                 }
             }
@@ -44,11 +48,14 @@ slint::slint!{
                 x:0;
                 y:100px;
                 text: "View Expenses";
-                TouchArea {
+
+                // Directly calling this element.
+                view_btn_touch:= TouchArea {
                     clicked => {
                         view.active = true;
-                        markpage.visible = false;
                         mark.active = false;
+                        markpage.visible = false;
+                        viewpage.visible = true;
                     }
                 }
             }
@@ -71,10 +78,13 @@ slint::slint!{
             }
         }
 
+        viewpage:= ViewPage {}
+
     }
 }
 
 mod file_mgmt;
+mod file_read;
 
 fn main() {
 

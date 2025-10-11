@@ -1,10 +1,26 @@
 
-import { ScrollView } from "std-widgets.slint";
+import { ScrollView, LineEdit } from "std-widgets.slint";
+import {ItemContainer} from "items.slint";
+
+export struct ItemDetail {
+    name: string,
+    cost: string
+}
 export component ViewPage inherits Rectangle {
 
     // Will become visible when 'View Expenses' button is clicked on the GUI.
     visible: false;
 
+    // This property will be updated by the "main.rs" file's 'updateExpenses' function
+    // Any change on this property will then trigger the 'changed itemDetails' function
+    in-out property <[ItemDetail]> itemDetails: [
+
+        // Dummy value.
+        {name: "Ishan", cost: "22"},
+        {name: "Ishan", cost: "22"},
+        {name: "Ishan", cost: "22"},
+        {name: "Ishan", cost: "22"},
+    ];
 
     Rectangle {
         x: 100px;
@@ -25,9 +41,61 @@ export component ViewPage inherits Rectangle {
         horizontal-alignment: center;
     }
 
-    ScrollView {
+    Rectangle {
+        border-width: 2px;
+        border-color: black;
+        x: 135px;
+        y: 86px;
+        width: 430px;
+        height: 270px;
+        
+        Text { 
+            // There's an 8px automatic padding on both sides of the scroll view.
+            // The middle difference between the two Texts is 10px
+            x: 5px;
+            y: 10px;
+            width: 215px;
+            text: "Item Name"; 
+            font-family: "Century";
+            font-size: 18px;
+            color: #0f9407;
+            horizontal-alignment: center;
+           
+        }
 
+        
+        Text { 
+            x: 215px;
+            y: 10px;
+            width: 215px;
+            text: "Item Cost"; 
+            font-family: "Century";
+            font-size: 18px;
+            color: #0f9407;
+            horizontal-alignment: center;
+        }
+        
+
+        sv:= ScrollView {
+            x: 0px;
+            y: 40px;
+            width: 420px;
+            height: 260px;
+            viewport-height: itemDetails.length * 70px;
+            
+            for items[i] in itemDetails: ItemContainer {
+                x: 10px;
+
+                // For some reason, the items kept going in the center. 
+                // To deal with that, I just brought these in the negative.
+                y: -200px + i * 40px;
+                item_name: items.name;
+                item_cost: items.cost;
+            }
+        }
     }
+
+    
 
     Rectangle {
 

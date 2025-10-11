@@ -1,14 +1,14 @@
-use std::{fs};
+use std::{fs, mem};
 use std::mem::take;
 
-pub fn read_item_cost_entries() -> Vec<u32>{
+pub fn read_item_cost_entries() -> Vec<String>{
 
     let byte_array : Vec<u8> = fs::read("./ItemCosts.txt").unwrap();
     // I'm not expecting any errors, so I just skipped the error handling by including 'unwrap()' at the end.
     // It removes the 'Ok' wrap and returns th e actual result value.
 
     // Stores the costs one by one
-    let mut cost_entries: Vec<u32> = Vec::new();
+    let mut cost_entries: Vec<String> = Vec::new();
 
     // Used to concatenate digits together
     let mut num_string: String = String::from("");
@@ -17,13 +17,9 @@ pub fn read_item_cost_entries() -> Vec<u32>{
 
         // If a byte value of '10' ('\n' in byte format) is encountered.
         if byte == 10 {
-            // pushing numbers into the vector.
-            // the number string is converted into Int using the 'parse' method. No explicit type stated.
-            // unwrap() is used to 'unwrap' the result (removes 'error' and returns the 'Ok' thing)
-            cost_entries.push(num_string.parse().unwrap());
-
-            // Once a \n is found, it clears the string to allow more numbers to be stored within it.
-            num_string.clear();
+            
+            // It doesn't matter to convert back into integer, because it is being stored as string in slint anyway.
+            cost_entries.push(mem::take(&mut num_string));
         }
         else {
             // Using direct typecasting to push byte as a character onto the string 
@@ -38,7 +34,7 @@ pub fn read_item_cost_entries() -> Vec<u32>{
 }
 
 
-fn read_item_name_entries () -> Vec<String>{
+pub fn read_item_name_entries () -> Vec<String>{
 
     let byte_array = fs::read("./ItemNames.txt").unwrap();
 
@@ -81,7 +77,7 @@ fn read_item_name_entries () -> Vec<String>{
 }
 
 
-fn main() {
-    read_item_cost_entries();
-    read_item_name_entries();
-}
+// fn main() {
+//     read_item_cost_entries();
+//     read_item_name_entries();
+// }

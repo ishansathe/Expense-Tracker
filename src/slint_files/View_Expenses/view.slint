@@ -14,12 +14,7 @@ export component ViewPage inherits Rectangle {
     // This property will be updated by the "main.rs" file's 'updateExpenses' function
     // Any change on this property will then trigger the 'changed itemDetails' function
     in-out property <[ItemDetail]> itemDetails: [
-
-        // Dummy value.
-        {name: "Ishan", cost: "22"},
-        {name: "Ishan", cost: "22"},
-        {name: "Ishan", cost: "22"},
-        {name: "Ishan", cost: "22"},
+        // Will have separate behaviour when no expenses are marked.
     ];
 
     Rectangle {
@@ -80,17 +75,21 @@ export component ViewPage inherits Rectangle {
             x: 0px;
             y: 40px;
             width: 420px;
-            height: 260px;
-            viewport-height: itemDetails.length * 70px;
-            
-            for items[i] in itemDetails: ItemContainer {
-                x: 10px;
 
-                // For some reason, the items kept going in the center. 
-                // To deal with that, I just brought these in the negative.
-                y: -200px + i * 40px;
-                item_name: items.name;
-                item_cost: items.cost;
+            // Appearance wise, this looks good.
+            height: 220px;
+
+            // Appearance wise, this looks good.
+            viewport-height: itemDetails.length * 40px;
+            
+            // Automatically performs vertical spacing and alignment of items based on total height.
+            VerticalLayout {
+                for items[i] in root.itemDetails: ItemContainer {
+                    x: 10px;
+
+                    item_name: items.name;
+                    item_cost: items.cost;
+                }
             }
         }
     }

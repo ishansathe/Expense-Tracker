@@ -28,7 +28,7 @@ pub fn read_item_cost_entries() -> Vec<String>{
         }
     }
     
-    println!("Now, the vector contains: {:?}", cost_entries);
+    // println!("Now, the vector contains: {:?}", cost_entries);
 
     return cost_entries;
 }
@@ -71,7 +71,7 @@ pub fn read_item_name_entries () -> Vec<String>{
         }
     }
 
-    println!("{:?}", name_entries);
+    // println!("{:?}", name_entries);
 
     return name_entries;
 }

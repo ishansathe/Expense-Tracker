@@ -5,6 +5,7 @@ slint::slint!{
     import { CustomButton } from "src/slint_files/custom_button.slint";
     import { MarkPage } from "src/slint_files/Mark_Expenses/layout_text_button.slint";
     import { ViewPage, ItemDetail } from "src/slint_files/View_Expenses/view.slint";
+    import { TotalPage } from "src/slint_files/Calculate_Total/total.slint";
 
     export component Box inherits Window {
         width: 600px;
@@ -45,8 +46,10 @@ slint::slint!{
                     clicked => {
                         mark.active = true;
                         view.active = false;
+                        total.active = false;
                         markpage.visible = true;
                         viewpage.visible = false;
+                        totalpage.visible = false;
                     }
                 }
             }
@@ -59,14 +62,33 @@ slint::slint!{
                 // Directly calling this element.
                 view_btn_touch:= TouchArea {
                     clicked => {
-                        view.active = true;
+                        parent.active = true;
                         mark.active = false;
+                        total.active = false;
                         markpage.visible = false;
                         viewpage.visible = true;
+                        totalpage.visible = false;
 
                         // I changed the approach. Now the callback is called when the button is clicked
                         // Instead of it being an alias and then being overridden in the backend.
                         root.getExpenses();
+                    }
+                }
+            }
+
+            total:= CustomButton{
+                x: 0;
+                y: 150px;
+                text: "View Total";
+
+                view_total_touch:= TouchArea{
+                    clicked => {
+                        mark.active = false;
+                        view.active = false;
+                        parent.active = true;
+                        markpage.visible = false;
+                        viewpage.visible = false;
+                        totalpage.visible = true;
                     }
                 }
             }
@@ -90,6 +112,8 @@ slint::slint!{
         }
 
         viewpage:= ViewPage {}
+
+        totalpage := TotalPage {}
 
     }
 }

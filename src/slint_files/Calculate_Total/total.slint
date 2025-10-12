@@ -1,0 +1,56 @@
+
+
+export component TotalPage inherits Rectangle {
+
+    // By default invisible, until "View Total" button is clicked on the side menu!
+    visible: false;
+
+    in-out property <int> total : 5;
+
+    Rectangle {
+        x: 100px;
+        y: 0;
+        width: 500px;
+        height: 20px;
+        background: #023602;
+    }
+
+    Text {
+        x: 100px;
+        y: 40px;
+        horizontal-alignment: center;
+        width: 500px;
+
+        font-size: 28px;
+        text: "Expense Tracker";
+        color: #548054;
+        font-family: "Gill Sans Ultra Bold Condensed";
+    }
+
+    Text {
+        x: 100px;
+        y: 85px;
+        horizontal-alignment: center;
+        width: 500px;
+
+        font-size: 18px;
+        font-family: "Century";
+        color: #0f9407;
+        text: "Total is " + total;
+    }
+
+    Rectangle {
+
+        /* These 3 values because
+            - 100px away from x (skipping the sidebar)
+            - 380px away from y. Total 400, 20px reduction on height of the rectangle
+            - 500px of width. (Using parent.width brings some unknown issues.) Whole window is of size 600px.
+        */ 
+        x: 100px;
+        y: 380px;
+        width: 500px;
+
+        height: 20px;
+        background: #023602;
+    }
+}

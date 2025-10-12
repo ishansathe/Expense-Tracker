@@ -19,6 +19,9 @@ slint::slint!{
         // when the 'view expenses' button -> 'view_btn_touch'  is clicked.
         callback getExpenses();
 
+        in-out property <int> total <=> totalpage.total;
+        callback getTotal();
+
         // The 'getExpenses' callback will initiate a function at the backend
         // within which, the item details will be read and fed into the function 'callExpenses'
         public function updateExpenses(itemInfo: [ItemDetail]) {
@@ -89,6 +92,9 @@ slint::slint!{
                         markpage.visible = false;
                         viewpage.visible = false;
                         totalpage.visible = true;
+
+                        // Callback is called when this button is clicked.
+                        root.getTotal();
                     }
                 }
             }
@@ -120,6 +126,7 @@ slint::slint!{
 
 mod file_mgmt;
 mod file_read;
+mod calculate_total;
 
 use std::mem;
 use slint::{VecModel, ModelRc};
@@ -134,9 +141,10 @@ fn main() {
 
     let weak_clicked = weak_box.clone();
     let weak_get_expenses = weak_box.clone();
+    let weak_get_total = weak_box.clone();
 
     obox.on_clicked(move || {
-        println!("Button clicked!");
+        println!("Expense Added!");
 
         let in_box = weak_clicked.upgrade().unwrap();
 
@@ -191,6 +199,19 @@ fn main() {
         }
     });
 
+
+    obox.on_getTotal({
+        let get_total_weak_box_clone = weak_get_total.clone();
+        move || {
+            println!("Retrieving total!");
+
+            let in_box = get_total_weak_box_clone.upgrade().unwrap();
+
+            let total = calculate_total::get_total();
+
+            in_box.set_total(total);
+        }
+    });
 
     obox.run().unwrap();
 

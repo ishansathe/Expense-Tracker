@@ -1,4 +1,5 @@
 
+import { Category } from "category.slint";
 
 export component TotalPage inherits Rectangle {
 
@@ -37,6 +38,63 @@ export component TotalPage inherits Rectangle {
         font-family: "Century";
         color: #0f9407;
         text: "Total is " + total;
+    }
+
+    GridLayout {
+        x: 125px;
+        // Each category is of width 150px
+        // So three rows make it 450px
+        // Size of free window is 600px (total) - 100px (occupied by menu) = 500px
+        // If we begin from 125px. Then it ends at 125px + 450px = 575px.
+        // This would make the last remaining space also be 25px.
+
+        y: 120px;
+        // 100px is spot on. I put 120px based on instinct.
+
+        height: 200px;
+
+        spacing-vertical: 25px;
+
+        Row {
+            Category {
+                image_path: @image-url("../../logos/food logo.svg");
+                category: "Food";
+                expense: 25;
+            }
+
+            Category {
+                image_path: @image-url("../../logos/utility logo.svg");
+                category: "Utility";
+                expense: 450;
+            }
+
+            Category {
+                image_path: @image-url("../../logos/travel logo.svg");
+                category: "Travel";
+                expense: 300;
+            }
+        }
+        
+        Row {
+            Category {
+                image_path: @image-url("../../logos/subscription logo.svg");
+                category: "Subscription";
+                expense: 25;
+            }
+
+            Category {
+                image_path: @image-url("../../logos/entertainment logo.svg");
+                category: "Entertainment";
+                expense: 450;
+            }
+
+            Category {
+                image_path: @image-url("../../logos/ghost logo.svg");
+                category: "Unknown";
+                expense: 300;
+            }
+        }
+
     }
 
     Rectangle {

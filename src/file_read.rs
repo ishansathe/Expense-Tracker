@@ -76,8 +76,3 @@ pub fn read_item_name_entries () -> Vec<String>{
     return name_entries;
 }
 
-
-// fn main() {
-//     read_item_cost_entries();
-//     read_item_name_entries();
-// }

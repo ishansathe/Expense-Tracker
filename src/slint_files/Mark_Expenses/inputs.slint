@@ -42,14 +42,3 @@ export component Name inherits VerticalLayout {
         horizontal-alignment: center;
     }
 }
-
-export component btn inherits Rectangle {
-
-    callback tch <=> tch.clicked;
-
-    tch:= TouchArea {
-        clicked => {
-            debug("I got clicked");
-        }
-    }
-}

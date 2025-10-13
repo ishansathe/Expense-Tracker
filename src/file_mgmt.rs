@@ -30,13 +30,3 @@ pub fn write_to_files (name: String, cost: String) {
 
 }
 
-
-// fn main() {
-//     // let mut file = File::create(
-//     //     "./ok.txt"
-//     // ).expect("Failed to create or open the file.");
-//     // file.write(b"Information").expect("Failed to write message");
-
-//     write_to_files("Ishan".into(), "23".into());
-//     println!("Something");
-// }

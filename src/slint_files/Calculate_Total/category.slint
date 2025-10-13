@@ -1,0 +1,26 @@
+
+
+export component Category inherits VerticalLayout {
+
+    width: 150px;
+    
+    in-out property <string> category;
+    in-out property <int> expense;
+    in-out property <image> image_path <=> img.source;
+    img:= Image {
+        image-fit: contain;
+
+        // width: 130px;
+        // If I keep 2 rows, 3 columns with each column of width 130px
+        // Then 390 px will be taken. 
+        // 400 is total size of free window space. 
+        // 5 pixels on each side would then be padded - via a rectangle or something else.
+
+        height: 80px;
+        horizontal-alignment: center;
+    }
+    Text {
+        text: category + ": " + expense;
+        horizontal-alignment: center;
+    }
+} 

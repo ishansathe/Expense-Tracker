@@ -5,8 +5,6 @@ export component ItemInfo inherits Rectangle {
     in-out property <length> info_x: 25px;
     in-out property <bool> read-only <=> lineedit.read-only;
     in-out property <string> text <=> lineedit.text;
-    callback finishedEdit();
-    
 
     lineedit := LineEdit {
         x: info_x + 10 * 1px;

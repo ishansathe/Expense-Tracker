@@ -1,0 +1,77 @@
+import { LineEdit } from "std-widgets.slint";
+
+export component ItemInfo inherits Rectangle {
+
+    in-out property <length> info_x: 25px;
+    in-out property <bool> read-only <=> lineedit.read-only;
+    in-out property <string> text <=> lineedit.text;
+    callback finishedEdit();
+    
+
+    lineedit := LineEdit {
+        x: info_x + 10 * 1px;
+        width: 190px;
+        horizontal-alignment: center;
+        read-only: true;
+    }
+    TouchArea {
+        x: info_x;
+        width: 200px;
+        y: 0;
+
+        // Match whatever height I keep.
+        height: parent.height;
+
+        clicked => {
+            // Does not allow text to be focused on if it is not editable.
+            if (lineedit.read-only && lineedit.has-focus) {
+                lineedit.clear-focus();
+            }
+            if (!lineedit.read-only) {
+                lineedit.focus();
+                lineedit.select-all();
+            }
+        }
+    }
+    editBtn := Rectangle{
+
+        property <bool> beingEdited: false;
+
+        x: info_x + 170 * 1px;
+        height: 20px;
+        width: 20px;
+
+        border-radius: 10px;  //anything below half of height and width is already a circle.
+        border-color: black;
+        border-width: 1px;
+
+        Image {
+            visible: true;
+            height: 15px;
+            width: 15px;
+
+            // Shows pencil logo if not being edited and correct logo if it is being edited.
+            source: beingEdited ? 
+                @image-url("../../logos/correct logo.svg")
+                : @image-url("../../logos/pencil logo.svg") ;
+
+            TouchArea {
+                height: parent.height;
+                width: parent.width;
+
+                clicked => {
+                    if(beingEdited){
+                        beingEdited = false;
+                        debug("This text is being edited: ", beingEdited);
+                        return;
+                    }
+                    if(!beingEdited){
+                        beingEdited = true;
+                        debug("This text is being edited: ", beingEdited);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}

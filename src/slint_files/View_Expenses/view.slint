@@ -1,6 +1,6 @@
 
-import { ScrollView, LineEdit } from "std-widgets.slint";
-import {ItemContainer} from "items.slint";
+import { ScrollView, LineEdit, CheckBox, ComboBox, Button } from "std-widgets.slint";
+import {ItemContainer, Category} from "items.slint";
 
 export struct ItemDetail {
     name: string,
@@ -98,8 +98,88 @@ export component ViewPage inherits Rectangle {
                 }
             }
         }
+
+        
     }
 
+    settings:= Rectangle {
+        visible: false;
+        x: 225px;
+        y: 100px;
+
+        height: 200px;
+        width: 250px;
+
+        VerticalLayout {
+            spacing: 20px;
+
+            Text {
+                text: "Altering the selected Item.";
+                font-size: 20px;
+                color: green;
+                horizontal-alignment: center;
+            }
+
+            HorizontalLayout {
+                spacing: 10px;
+
+                Text {
+                    width: 75px;
+                    text: "Item Name";
+                    font-size: 15px;
+                    color: green;
+                    vertical-alignment: center;
+                }
+                LineEdit {
+                    width: 150px;
+                    placeholder-text: "Enter new name if you want to alter the name.";
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 20px;
+
+                Text {
+                    width: 75px;
+                    text: "Item Cost";
+                    font-size: 15px;
+                    color: green;
+                    vertical-alignment: center;
+                }
+                LineEdit {
+                    width: 150px;
+                    placeholder-text: "Enter new cost if you want to alter the cost.";
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 20px;
+
+                Text {
+                    width: 75px;
+                    text: "Category";
+                    font-size: 15px;
+                    color: green;
+                    vertical-alignment: center;
+                }
+
+                ComboBox {
+                    width: 150px;
+                    model: [
+                        "Entertainment",
+                        "Food",
+                        "Work",
+                        "Subscriptions",
+                        "Utility",
+                        "Travel"
+                    ];
+                }
+            }
+            Button {
+                text: "Done";
+            }
+        }
+    }
     
 
     Rectangle {

@@ -1,4 +1,5 @@
 import { LineEdit } from "std-widgets.slint";
+import { ItemInfo } from "item_info.slint";
 
 
 export enum Category { Work, Utility, Entertainment, Travel, Food, Subscriptions }
@@ -19,20 +20,6 @@ export component ItemContainer inherits Rectangle {
     Rectangle {
         height: 65px;
 
-        // Edit Circle
-        Rectangle {
-            x: 25px;
-            y: 0;
-            z: 3;
-            // This will now fit half in the outer rectangle and half inside the inner rectangles.
-            width: 30px;
-            height: 30px;
-
-            border-radius: 15px;
-            border-width: 2px;
-            border-color: black;
-        }
-
         // Category Rectangle
         Rectangle {
             x: 0;
@@ -49,51 +36,22 @@ export component ItemContainer inherits Rectangle {
                 blue;
             }
 
+
+            iname := ItemInfo {
+                height: parent.height;
+                info_x: 0px;
+                finishedEdit => {
+                    edit_circle.visible = true;
+                }
+            }
+           
+            icost := ItemInfo{
+                height: parent.height;
+                info_x: 200px;
+            }
+
             
-            // Name Rectangle
-            Rectangle {
-                    // Both properties are kept 200px in size, to divide them equally.
-                iname := LineEdit {
-                    x: 10px;
-                    width: 190px;
-                    horizontal-alignment: center;
-                    read-only: true;
-                }
-
-                TouchArea {
-                    clicked => {
-                        if (iname.has-focus && iname.read-only) {
-                            iname.clear-focus();
-                        }
-                    }
-                }
-            }
-
-
-            // Cost Rectangle
-            Rectangle {
-                // Even if we set the input-type as 'number', it will still be accepting 'string'
-                icost := LineEdit {
-                    // icost begins from 220px so as to fit the rest of 200 inside.
-                    x: 210px;
-                    width: 190px;
-                    horizontal-alignment: center;
-                    read-only: true;
-                }
-
-                TouchArea {
-                    clicked => {
-                        if (icost.has-focus && icost.read-only) {
-                            icost.clear-focus();
-                        }
-                    }
-                }
-            }
         }
+
     }
-
-
-    
-    
-    
 }

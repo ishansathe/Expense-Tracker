@@ -13,11 +13,13 @@ pub struct ItemInfo{
     category: String,
 }
 
+#[allow(dead_code)]
 fn main() {
     serialize_struct_into_json();
     deserialize_json_into_struct();
 }
 
+#[allow(dead_code)]
 pub fn serialize_struct_into_json(){
     let item1 = ItemInfo{
         name: "Pen".to_string(),

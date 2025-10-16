@@ -4,7 +4,8 @@ import {ItemContainer} from "items.slint";
 
 export struct ItemDetail {
     name: string,
-    cost: string
+    cost: string,
+    category: string
 }
 export component ViewPage inherits Rectangle {
 
@@ -15,6 +16,11 @@ export component ViewPage inherits Rectangle {
     // Any change on this property will then trigger the 'changed itemDetails' function
     in-out property <[ItemDetail]> itemDetails: [
         // Will have separate behaviour when no expenses are marked.
+        {
+            name: "Ishan",
+            cost: "24",
+            category: "Good"
+        }
     ];
 
     Rectangle {
@@ -80,7 +86,7 @@ export component ViewPage inherits Rectangle {
             height: 220px;
 
             // Appearance wise, this looks good.
-            viewport-height: itemDetails.length * 40px;
+            viewport-height: itemDetails.length * 60px; //Original was 40
             
             // Automatically performs vertical spacing and alignment of items based on total height.
             VerticalLayout {

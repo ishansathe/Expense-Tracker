@@ -1,34 +1,78 @@
 import { LineEdit } from "std-widgets.slint";
+
+
+export enum Category { Work, Utility, Entertainment, Travel, Food, Subscriptions }
 export component ItemContainer inherits Rectangle {
 
     // Size of scroll view container.
     width: 410px;
 
-    in-out property <string> item_name <=> iname.text;
-    in-out property <string> item_cost <=> icost.text;
+    in-out property <string> item_name 
+    <=> iname.text;
+    in-out property <string> item_cost
+    <=> icost.text;
+    in-out property <Category> item_category;
 
 
-    // // Present only for testing purposes. Please remove later.
-    // Rectangle {
-    //     background: red;
-    //     width: 410px;
-    //     height: 20px;
-    // }
-
-    // Both properties are kept 200px in size, to divide them equally.
-    iname := LineEdit {
+    
+    Rectangle {
         x: 0;
-        width: 200px;
-        horizontal-alignment: center;
-        read-only: true;
-    }
+        height: 50px;
+        width: 420px;
 
-    // Even if we set the input-type as 'number', it will still be accepting 'string'
-    icost := LineEdit {
-        // icost begins from 220px so as to fit the rest of 200 inside.
-        x: 210px;
-        width: 200px;
-        horizontal-alignment: center;
-        read-only: true;
+        in-out property <Category> icategory;
+
+        background: {
+            if (icategory == Category.Food) {
+                green;
+            }
+            if(icategory == Category.Entertainment) {
+                yellow;
+            }
+            blue;
+        }
+
+
+        // Name Rectangle
+        Rectangle {
+                // Both properties are kept 200px in size, to divide them equally.
+            iname := LineEdit {
+                x: 10px;
+                width: 190px;
+                horizontal-alignment: center;
+                read-only: true;
+            }
+
+            TouchArea {
+                clicked => {
+                    if (iname.has-focus && iname.read-only) {
+                        iname.clear-focus();
+                    }
+                }
+            }
+        }
+
+
+        // Cost Rectangle
+        Rectangle {
+            // Even if we set the input-type as 'number', it will still be accepting 'string'
+            icost := LineEdit {
+                // icost begins from 220px so as to fit the rest of 200 inside.
+                x: 210px;
+                width: 190px;
+                horizontal-alignment: center;
+                read-only: true;
+            }
+
+            TouchArea {
+                clicked => {
+                    if (icost.has-focus && icost.read-only) {
+                        icost.clear-focus();
+                    }
+                }
+            }
+        }
     }
+    
+    
 }

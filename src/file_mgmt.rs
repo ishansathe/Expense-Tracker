@@ -3,6 +3,10 @@ use std::fs::{OpenOptions};
 use std::io::Write;
 
 
+use serde_json::from_str;
+
+use crate::serdes::ItemInfo;
+
 // This function is used to write Item name and cost to a file.
 pub fn write_to_files (name: String, cost: String) {
 
@@ -30,3 +34,26 @@ pub fn write_to_files (name: String, cost: String) {
 
 }
 
+#[allow(dead_code)]
+pub fn write_json_to_files (json_item_string: String){
+
+    let mut item_details_file = OpenOptions::new()
+        .create(true)
+        .write(true)
+        .append(true)
+        .open("ItemDetails.json").unwrap();
+
+    item_details_file.write(json_item_string.as_bytes())
+        .expect("Could not write to ItemDetails.json");
+}
+
+
+#[allow(dead_code)]
+pub fn read_json_from_file () -> ItemInfo{
+
+    let item_details_file = std::fs::read_to_string("ItemDetails.json").unwrap();
+
+    let item_details_json_struct = from_str::<ItemInfo>(&item_details_file).unwrap();
+
+    return item_details_json_struct;
+}

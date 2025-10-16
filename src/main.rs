@@ -127,6 +127,7 @@ slint::slint!{
 mod file_mgmt;
 mod file_read;
 mod calculate_total;
+mod serdes;
 
 use std::mem;
 use slint::{VecModel, ModelRc};
@@ -188,7 +189,8 @@ fn main() {
                 item_details.push(
                     ItemDetail { 
                         name: mem::take(&mut item_names[i]).into(), 
-                        cost: mem::take(&mut item_costs[i]).into() 
+                        cost: mem::take(&mut item_costs[i]).into(),
+                        category: "Okay".into()
                     }
                 );
             }
@@ -214,6 +216,9 @@ fn main() {
     });
 
     obox.run().unwrap();
+
+
+    // serdes::serialize_struct_into_json();
 
     println!("Hello, world!");
 }

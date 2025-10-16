@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Work",
+    "cost": 20,
+    "name": "Pen"
+  },
+  {
+    "category": "Food",
+    "cost": 120,
+    "name": "Burger"
+  },
+  {
+    "category": "Work",
+    "cost": 20,
+    "name": "Pen"
+  },
+  {
+    "category": "Food",
+    "cost": 120,
+    "name": "Burger"
+  }
+]

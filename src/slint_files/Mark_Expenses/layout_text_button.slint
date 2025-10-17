@@ -1,5 +1,5 @@
 import { Button } from "std-widgets.slint";
-import { Amt, Name } from "inputs.slint";
+import { Amt, Name, Category } from "inputs.slint";
 
 export component MarkPage inherits VerticalLayout { 
     // here, there are no parents. Only root within which this component will be used.
@@ -12,8 +12,11 @@ export component MarkPage inherits VerticalLayout {
     width: 500px;
     spacing: 10px;
 
+    alignment: center;
+
     in-out property <string> item_name;
     in-out property <string> item_cost;
+    in-out property <string> item_category;
     callback submit <=> submitBtn.clicked;
     in-out property <string> info <=> info.text;
     callback resetFields();
@@ -73,8 +76,17 @@ export component MarkPage inherits VerticalLayout {
                 root.item_cost = self.amount;
             }
         }
-        
+
     }
+
+    category:= Category {
+        
+        changed i_category => {
+            root.item_category = self.i_category;
+        }
+    }
+
+
     submitBtn:= Button { 
         text: "Click me"; 
         width: 100px;

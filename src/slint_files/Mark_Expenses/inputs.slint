@@ -1,4 +1,5 @@
-import { LineEdit, VerticalBox } from "std-widgets.slint";
+import { LineEdit, VerticalBox, ComboBox } from "std-widgets.slint";
+import { Category } from "../View_Expenses/items.slint";
 
 /*
     So this module contains code for Home Page that involves marking expenses made so far.
@@ -40,5 +41,26 @@ export component Name inherits VerticalLayout {
         placeholder-text: "Enter name";
         width: 101px;
         horizontal-alignment: center;
+    }
+}
+
+
+export component Category inherits VerticalLayout {
+    // The i_category property is attached to the child element (category)'s 'text' property.
+    // Any change to the child's text property will be seen in the parent's i_name property!
+    in-out property <string> i_category <=> category.current-value;
+    Text{
+        text: "Category";
+        font-size: 18px;
+        color: #436b41;
+        horizontal-alignment: center;
+        font-family: "Century";
+    }
+
+    category:= ComboBox {
+        x: 190px;
+        current-value: "Work";
+        model: ["Work", "Utility", "Entertainment", "Travel", "Food", "Subscriptions"];
+        width: 120px;
     }
 }

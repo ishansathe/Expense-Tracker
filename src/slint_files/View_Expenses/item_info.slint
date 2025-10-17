@@ -45,8 +45,8 @@ export component ItemInfo inherits Rectangle {
 
         Image {
             visible: true;
-            height: 15px;
-            width: 15px;
+            height: 12px;
+            width: 12px;
 
             // Shows pencil logo if not being edited and correct logo if it is being edited.
             source: beingEdited ? 
@@ -60,12 +60,14 @@ export component ItemInfo inherits Rectangle {
                 clicked => {
                     if(beingEdited){
                         beingEdited = false;
-                        debug("This text is being edited: ", beingEdited);
+                        lineedit.read-only = true;
+                        lineedit.clear-focus();
                         return;
                     }
                     if(!beingEdited){
                         beingEdited = true;
-                        debug("This text is being edited: ", beingEdited);
+                        lineedit.read-only = false;
+                        lineedit.focus();
                         return;
                     }
                 }

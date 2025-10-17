@@ -1,6 +1,6 @@
 
 import { ScrollView, LineEdit, CheckBox, ComboBox, Button } from "std-widgets.slint";
-import {ItemContainer, Category} from "items.slint";
+import {ItemContainer, Category, CategoryProps} from "items.slint";
 
 export struct ItemDetail {
     name: string,
@@ -95,6 +95,16 @@ export component ViewPage inherits Rectangle {
 
                     item_name: items.name;
                     item_cost: items.cost;
+                    item_category: settings.selected_category;
+                    change_category => {
+                        settings.visible = true;
+                        self.changing_category = true;
+
+                        if(CategoryProps.change_complete) {
+                            self.changing_category = false;
+                            return;
+                        }
+                    }
                 }
             }
         }
@@ -107,6 +117,8 @@ export component ViewPage inherits Rectangle {
         x: 225px;
         y: 100px;
 
+        in-out property <Category> selected_category: Food;
+
         height: 200px;
         width: 250px;
 
@@ -114,69 +126,43 @@ export component ViewPage inherits Rectangle {
             spacing: 20px;
 
             Text {
-                text: "Altering the selected Item.";
+                text: "Select Category.";
                 font-size: 20px;
                 color: green;
                 horizontal-alignment: center;
             }
-
-            HorizontalLayout {
-                spacing: 10px;
-
-                Text {
-                    width: 75px;
-                    text: "Item Name";
-                    font-size: 15px;
-                    color: green;
-                    vertical-alignment: center;
+            ComboBox {
+                width: 150px;
+                model: [
+                    "Entertainment",
+                    "Food",
+                    "Work",
+                    "Subscriptions",
+                    "Utility",
+                    "Travel"
+                ];
+                selected(current-value) => {
+                    if (current-value == "Entertainment"){
+                        selected_category = Category.Entertainment
+                    }
+                    if (current-value == "Food"){
+                        selected_category = Category.Food
+                    }
+                    if (current-value == "Work"){
+                        selected_category = Category.Work
+                    }
+                    if (current-value == "Subscriptions"){
+                        selected_category = Category.Subscriptions
+                    }
+                    if (current-value == "Travel"){
+                        selected_category = Category.Travel
+                    }
+                    if (current-value == "Utility"){
+                        selected_category = Category.Utility
+                    }
+                    settings.visible = false;
+                    CategoryProps.change_complete = true;
                 }
-                LineEdit {
-                    width: 150px;
-                    placeholder-text: "Enter new name if you want to alter the name.";
-                }
-            }
-
-            HorizontalLayout {
-                spacing: 20px;
-
-                Text {
-                    width: 75px;
-                    text: "Item Cost";
-                    font-size: 15px;
-                    color: green;
-                    vertical-alignment: center;
-                }
-                LineEdit {
-                    width: 150px;
-                    placeholder-text: "Enter new cost if you want to alter the cost.";
-                }
-            }
-
-            HorizontalLayout {
-                spacing: 20px;
-
-                Text {
-                    width: 75px;
-                    text: "Category";
-                    font-size: 15px;
-                    color: green;
-                    vertical-alignment: center;
-                }
-
-                ComboBox {
-                    width: 150px;
-                    model: [
-                        "Entertainment",
-                        "Food",
-                        "Work",
-                        "Subscriptions",
-                        "Utility",
-                        "Travel"
-                    ];
-                }
-            }
-            Button {
-                text: "Done";
             }
         }
     }

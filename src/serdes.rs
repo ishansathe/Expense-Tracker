@@ -10,9 +10,9 @@ use std::io::{ Write};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ItemInfo{
-    name: String,
-    cost: i32,
-    category: String,
+    pub name: String,
+    pub cost: String,
+    pub category: String,
 }
 
 #[allow(dead_code)]
@@ -25,13 +25,13 @@ fn main() {
 pub fn serialize_struct_into_json(){
     let item1 = ItemInfo{
         name: "Pen".to_string(),
-        cost: 20,
+        cost: "20".to_string(),
         category: "Work".to_string(),
     };
 
     let item2 = ItemInfo{
         name: "Burger".to_string(),
-        cost: 120,
+        cost: "120".to_string(),
         category: "Food".to_string(),
     };
 
@@ -82,7 +82,7 @@ pub fn deserialize_json_into_struct() {
     let raw_string = r#"
     [{
         "name": "Book",
-        "cost": 45,
+        "cost": "45",
         "category": "Work"
     }]
     "#;

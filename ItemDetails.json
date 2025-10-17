@@ -1,22 +1,12 @@
 [
   {
-    "category": "Work",
-    "cost": 20,
-    "name": "Pen"
-  },
-  {
     "category": "Food",
-    "cost": 120,
-    "name": "Burger"
+    "cost": "731",
+    "name": "Frankie"
   },
   {
     "category": "Work",
-    "cost": 20,
-    "name": "Pen"
-  },
-  {
-    "category": "Food",
-    "cost": 120,
-    "name": "Burger"
+    "cost": "20",
+    "name": "Pens"
   }
 ]

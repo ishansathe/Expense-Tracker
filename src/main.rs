@@ -13,6 +13,9 @@ slint::slint!{
         background: #e6f5e6;
         in-out property <string> amt;
         in-out property <string> name;
+
+        // Default value set to "Work".
+        in-out property <string> category: "Work";
         callback clicked <=> markpage.submit;
 
         // I want this callback to be made by the backend 
@@ -115,6 +118,9 @@ slint::slint!{
             changed item_cost => {
                 root.amt = self.item_cost;
             }
+            changed item_category => {
+                root.category = self.item_category;
+            }
         }
 
         viewpage:= ViewPage {}
@@ -157,14 +163,17 @@ fn main() {
         if in_box.get_name() != "" && in_box.get_amt() != "" {
             
             let info_text = format!(
-                "Added {} at {} Rs", 
-                in_box.get_name(), in_box.get_amt()
+                "Added {} at {} Rs in Category {}", 
+                in_box.get_name(), in_box.get_amt(), in_box.get_category()
             );
             in_box.invoke_changeInfo(info_text.into());
 
-            file_mgmt::write_to_files(
+            println!("{}", in_box.get_category());
+
+            file_mgmt::store_in_file(
                 in_box.get_name().into(), 
-                in_box.get_amt().into()
+                in_box.get_amt().into(),
+                in_box.get_category().into()
             );
         }
 

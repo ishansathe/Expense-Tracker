@@ -194,21 +194,6 @@ fn main() {
 
             let in_box = weak_box_clone.upgrade().unwrap();
 
-            // let mut item_names: Vec<String> = file_read::read_item_name_entries();
-            // let mut item_costs: Vec<String> = file_read::read_item_cost_entries();
-
-            // let mut item_details: Vec<ItemDetail> = Vec::with_capacity(item_costs.len());
-
-            // for i in 0..item_costs.len() {
-            //     item_details.push(
-            //         ItemDetail { 
-            //             name: mem::take(&mut item_names[i]).into(), 
-            //             cost: mem::take(&mut item_costs[i]).into(),
-            //             category: Category::Food
-            //         }
-            //     );
-            // }
-
             let vec_of_vecs = file_mgmt::read_from_file();
 
             // Converts the vectors into iterators, then converts iterators into reference strings!

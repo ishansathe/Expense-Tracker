@@ -5,7 +5,7 @@ import {ItemContainer, Category, CategoryProps} from "items.slint";
 export struct ItemDetail {
     name: string,
     cost: string,
-    category: string
+    category: Category
 }
 export component ViewPage inherits Rectangle {
 
@@ -19,7 +19,7 @@ export component ViewPage inherits Rectangle {
         {
             name: "Ishan",
             cost: "24",
-            category: "Good"
+            category: Category.Entertainment
         }
     ];
 
@@ -95,7 +95,7 @@ export component ViewPage inherits Rectangle {
 
                     item_name: items.name;
                     item_cost: items.cost;
-                    item_category: settings.selected_category;
+                    item_category: items.category;
                     change_category => {
                         settings.visible = true;
                         self.changing_category = true;

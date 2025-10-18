@@ -8,5 +8,10 @@
     "category": "Work",
     "cost": "20",
     "name": "Pens"
+  },
+  {
+    "category": "Food",
+    "cost": "50",
+    "name": "Oranges"
   }
 ]

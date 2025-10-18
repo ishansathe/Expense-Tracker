@@ -6,6 +6,7 @@ slint::slint!{
     import { MarkPage } from "src/slint_files/Mark_Expenses/layout_text_button.slint";
     import { ViewPage, ItemDetail } from "src/slint_files/View_Expenses/view.slint";
     import { TotalPage } from "src/slint_files/Calculate_Total/total.slint";
+    import { Category } from "src/slint_files/View_Expenses/items.slint";
 
     export component Box inherits Window {
         width: 600px;
@@ -14,8 +15,12 @@ slint::slint!{
         in-out property <string> amt;
         in-out property <string> name;
 
-        // Default value set to "Work".
-        in-out property <string> category: "Work";
+        // This is string because i thought it is quite simple to accept input as string 
+        // and have it stored as string within the JSON object.
+        in-out property <string> category;
+
+        in-out property <[ItemDetail]> item_details <=> viewpage.itemDetails;
+
         callback clicked <=> markpage.submit;
 
         // I want this callback to be made by the backend 
@@ -189,22 +194,64 @@ fn main() {
 
             let in_box = weak_box_clone.upgrade().unwrap();
 
-            let mut item_names: Vec<String> = file_read::read_item_name_entries();
-            let mut item_costs: Vec<String> = file_read::read_item_cost_entries();
+            // let mut item_names: Vec<String> = file_read::read_item_name_entries();
+            // let mut item_costs: Vec<String> = file_read::read_item_cost_entries();
 
-            let mut item_details: Vec<ItemDetail> = Vec::with_capacity(item_costs.len());
+            // let mut item_details: Vec<ItemDetail> = Vec::with_capacity(item_costs.len());
 
-            for i in 0..item_costs.len() {
-                item_details.push(
-                    ItemDetail { 
-                        name: mem::take(&mut item_names[i]).into(), 
-                        cost: mem::take(&mut item_costs[i]).into(),
-                        category: "Okay".into()
+            // for i in 0..item_costs.len() {
+            //     item_details.push(
+            //         ItemDetail { 
+            //             name: mem::take(&mut item_names[i]).into(), 
+            //             cost: mem::take(&mut item_costs[i]).into(),
+            //             category: Category::Food
+            //         }
+            //     );
+            // }
+
+            let vec_of_vecs = file_mgmt::read_from_file();
+
+            // Converts the vectors into iterators, then converts iterators into reference strings!
+            // No need to string.clone() later! (Or even to take references via memory)
+            let item_names0: Vec<&String> = vec_of_vecs[0].iter().collect();
+            let item_costs1: Vec<&String> = vec_of_vecs[1].iter().collect();
+            let item_category2: Vec<&String> = vec_of_vecs[2].iter().collect();
+
+            let mut item_details_: Vec<ItemDetail> = Vec::with_capacity(item_names0.len());
+
+            for index in 0 .. item_names0.len() {
+
+                // A default category of travel is kept, to avoid errors.
+                let mut i_category: Category = Category::Travel;
+                if item_category2[index] == "Food" {
+                    i_category = Category::Food;
+                }
+                if item_category2[index] == "Travel" {
+                    i_category = Category::Travel;
+                }
+                if item_category2[index] == "Work" {
+                    i_category = Category::Work;
+                }
+                if item_category2[index] == "Utility" {
+                    i_category = Category::Utility;
+                }
+                if item_category2[index] == "Subscriptions" {
+                    i_category = Category::Subscriptions;
+                }
+                if item_category2[index] == "Entertainment" {
+                    i_category = Category::Entertainment;
+                }
+
+                item_details_.push(
+                        ItemDetail{
+                        name: item_names0[index].into(),
+                        cost: item_costs1[index].into(),
+                        category: i_category
                     }
-                );
+                )
             }
 
-            let model_rc_version = Rc::new(VecModel::from(item_details));
+            let model_rc_version = Rc::new(VecModel::from(item_details_));
 
             in_box.invoke_updateExpenses(ModelRc::from(model_rc_version));
         }
@@ -225,6 +272,8 @@ fn main() {
     });
 
     obox.run().unwrap();
+
+    file_mgmt::read_from_file();
 
 
     // serdes::serialize_struct_into_json();

@@ -60,31 +60,28 @@ export component ItemContainer inherits Rectangle {
             x: 0;
             height: 50px;
             width: 410px;
-            in-out property <Category> category: 
-                changing_category ? 
-                    CategoryProps.global_category // global value
-                    : item_category;  //pre-defined/stored value
+            in-out property <Category> category: item_category;  //pre-defined/stored value
 
             background: {
-                if (category == Category.Food) {
-                    green;
+                if (self.category == Category.Food) {
+                    return green;
                 }
                 if(category == Category.Entertainment) {
-                    yellow;
+                    return yellow;
                 }
-                if (category == Category.Subscriptions) {
-                    purple;
+                if (self.category == Category.Subscriptions) {
+                    return purple;
                 }
                 if (category == Category.Utility) {
-                    red;
+                    return red;
                 }
                 if (category == Category.Work) {
-                    blue;
+                    return blue;
                 }
                 if (category == Category.Travel) {
-                    lightblue;
+                    return lightblue;
                 }
-                gray;
+                return gray;
             }
 
 

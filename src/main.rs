@@ -136,11 +136,9 @@ slint::slint!{
 }
 
 mod file_mgmt;
-mod file_read;
 mod calculate_total;
 mod serdes;
 
-use std::mem;
 use slint::{VecModel, ModelRc};
 use std::rc::Rc;
 

@@ -13,5 +13,10 @@
     "category": "Food",
     "cost": "50",
     "name": "Oranges"
+  },
+  {
+    "category": "Utility",
+    "cost": "4000",
+    "name": "Light"
   }
 ]

@@ -38,7 +38,14 @@ export component ItemContainer inherits Rectangle {
             y: 0;
             z: 1;
             border-radius: 15px;
-            border-color: white;
+            border-color: {
+                item_category == Category.Entertainment ?
+                yellow : item_category == Category.Food ? 
+                green : item_category == Category.Subscriptions ?
+                purple : item_category == Category.Travel ?
+                lightblue : item_category == Category.Utility ?
+                red : blue // blue is for "Work" category!
+            };
             border-width: 1px;
 
             Image {
@@ -96,6 +103,69 @@ export component ItemContainer inherits Rectangle {
             }
 
             
+        }
+
+        editInfo:= Rectangle{
+            x: 360px;
+            width: 30px;
+            height: 30px;
+            y: 0;
+            z: 1;
+            in-out property <bool> beingEdited;
+
+            border-color: {
+                beingEdited ? 
+                black : 
+                white
+            };
+            
+            border-radius: 15px;
+            border-width: 1px;
+            Image {
+                width: 20px;
+                height: 20px;
+
+                source: beingEdited ?
+                    @image-url("../../logos/pencil logo.svg")
+                    : @image-url("../../logos/correct logo.svg");
+
+                colorize: {
+                    beingEdited ?
+                    black :
+                    white
+                };
+
+                TouchArea {
+                    clicked => {
+
+                        // If the text is indeed being updated, then reverse this.
+                        if (editInfo.beingEdited) {
+                            editInfo.beingEdited = false;
+
+                            iname.beingEdited = false;
+                            iname.read-only = true;
+
+                            icost.beingEdited = false;
+                            icost.read-only = true;
+                            
+                            return;
+                        }
+
+                        // If text is NOT being updated, then reverse this.
+                        if (!editInfo.beingEdited) {
+                            editInfo.beingEdited = true;
+
+                            iname.beingEdited = true;
+                            iname.read-only = false;
+
+                            icost.beingEdited = true;
+                            icost.read-only = false;
+
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
     }

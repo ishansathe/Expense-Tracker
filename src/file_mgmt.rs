@@ -5,8 +5,6 @@ use std::io::Write;
 use serde_json::{from_str, json, to_string_pretty, Value};
 
 use crate::serdes::ItemInfo;
-use crate::{ItemDetail, Category};
-
 
 pub fn store_in_file(name: String, cost: String, category: String){
 
@@ -95,17 +93,6 @@ pub fn read_from_file() -> Vec<Vec<String>> {
     name_cost_category_vectors.push(vec_item_cost);
 
     name_cost_category_vectors.push(vec_item_category);
-
-    println!("{:?}", name_cost_category_vectors);
-
-    let ok = name_cost_category_vectors[0].iter();
-
-    println!("{:?}", ok);
-
-    let something: Vec<&String> = ok.collect();
-
-    let cat1 = something[2];
-    println!("{}", cat1);
 
     return name_cost_category_vectors;
 }

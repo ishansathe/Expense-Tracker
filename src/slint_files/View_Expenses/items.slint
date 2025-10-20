@@ -2,13 +2,7 @@ import { LineEdit, ComboBox } from "std-widgets.slint";
 import { ItemInfo } from "item_info.slint";
 
 
-
 export enum Category { Work, Utility, Entertainment, Travel, Food, Subscriptions }
-
-// export global CategoryProps {
-//     in-out property <Category> global_category;
-//     in-out property <bool> change_complete: false;
-// }
 
 export component ItemContainer inherits Rectangle {
 
@@ -20,12 +14,6 @@ export component ItemContainer inherits Rectangle {
     in-out property <string> item_name <=> iname.text;
     in-out property <string> item_cost <=> icost.text;
     in-out property <Category> item_category <=> icategory.category;
-    // <=> icategory.category;
-
-    // in-out property <bool> changing_category: false;
-
-    // callback change_category();
-
 
     // Main Rectangle
     Rectangle {

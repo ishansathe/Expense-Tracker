@@ -32,25 +32,18 @@ export component ItemContainer inherits Rectangle {
         height: 65px;
 
         category_edit:= Rectangle {
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             x: 20px;
             y: 0;
             z: 1;
             border-radius: 15px;
-            border-color: {
-                item_category == Category.Entertainment ?
-                yellow : item_category == Category.Food ? 
-                green : item_category == Category.Subscriptions ?
-                purple : item_category == Category.Travel ?
-                lightblue : item_category == Category.Utility ?
-                red : blue // blue is for "Work" category!
-            };
+            border-color: black;
             border-width: 1px;
 
             Image {
-                width: 25px;
-                height: 25px;
+                width: 20px;
+                height: 20px;
                 source: @image-url("../../logos/category logo.svg");
 
                 TouchArea {
@@ -69,26 +62,15 @@ export component ItemContainer inherits Rectangle {
             width: 410px;
             in-out property <Category> category: item_category;  //pre-defined/stored value
 
+            border-radius: 8px;
+
             background: {
-                if (self.category == Category.Food) {
-                    return green;
-                }
-                if(category == Category.Entertainment) {
-                    return yellow;
-                }
-                if (self.category == Category.Subscriptions) {
-                    return purple;
-                }
-                if (category == Category.Utility) {
-                    return red;
-                }
-                if (category == Category.Work) {
-                    return blue;
-                }
-                if (category == Category.Travel) {
-                    return lightblue;
-                }
-                return gray;
+                self.category == Category.Food ? 
+                green : category == Category.Entertainment ?
+                yellow : category == Category.Subscriptions ?
+                purple : category == Category.Travel ?
+                lightblue : category == Category.Utility ?
+                red : blue  //work is blue!
             }
 
 
@@ -101,39 +83,28 @@ export component ItemContainer inherits Rectangle {
                 height: parent.height;
                 info_x: 200px;
             }
-
-            
         }
 
         editInfo:= Rectangle{
             x: 360px;
-            width: 30px;
-            height: 30px;
+            width: 23px;
+            height: 23px;
             y: 0;
             z: 1;
-            in-out property <bool> beingEdited;
+            in-out property <bool> beingEdited : false;
 
-            border-color: {
-                beingEdited ? 
-                black : 
-                white
-            };
-            
+            border-color: black;
             border-radius: 15px;
             border-width: 1px;
             Image {
-                width: 20px;
-                height: 20px;
+                width: 17px;
+                height: 17px;
 
                 source: beingEdited ?
-                    @image-url("../../logos/pencil logo.svg")
-                    : @image-url("../../logos/correct logo.svg");
+                    @image-url("../../logos/correct logo.svg") // show tick logo to showcase button for completing edits
+                    : @image-url("../../logos/pencil logo.svg"); // show pencil logo to showcase button for making edits.
 
-                colorize: {
-                    beingEdited ?
-                    black :
-                    white
-                };
+                colorize: black;
 
                 TouchArea {
                     clicked => {

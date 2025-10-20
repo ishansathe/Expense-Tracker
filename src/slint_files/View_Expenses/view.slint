@@ -1,6 +1,6 @@
 
 import { ScrollView, LineEdit, CheckBox, ComboBox, Button } from "std-widgets.slint";
-import {ItemContainer, Category, CategoryProps} from "items.slint";
+import {ItemContainer, Category} from "items.slint";
 
 export struct ItemDetail {
     name: string,
@@ -96,15 +96,15 @@ export component ViewPage inherits Rectangle {
                     item_name: items.name;
                     item_cost: items.cost;
                     item_category: items.category;
-                    change_category => {
-                        settings.visible = true;
-                        self.changing_category = true;
+                    // change_category => {
+                    //     settings.visible = true;
+                    //     self.changing_category = true;
 
-                        if(CategoryProps.change_complete) {
-                            self.changing_category = false;
-                            return;
-                        }
-                    }
+                    //     if(CategoryProps.change_complete) {
+                    //         self.changing_category = false;
+                    //         return;
+                    //     }
+                    // }
                 }
             }
         }
@@ -112,60 +112,60 @@ export component ViewPage inherits Rectangle {
         
     }
 
-    settings:= Rectangle {
-        visible: false;
-        x: 225px;
-        y: 100px;
+    // settings:= Rectangle {
+    //     visible: false;
+    //     x: 225px;
+    //     y: 100px;
 
-        in-out property <Category> selected_category: Food;
+    //     in-out property <Category> selected_category: Food;
 
-        height: 200px;
-        width: 250px;
+    //     height: 200px;
+    //     width: 250px;
 
-        VerticalLayout {
-            spacing: 20px;
+    //     VerticalLayout {
+    //         spacing: 20px;
 
-            Text {
-                text: "Select Category.";
-                font-size: 20px;
-                color: green;
-                horizontal-alignment: center;
-            }
-            ComboBox {
-                width: 150px;
-                model: [
-                    "Entertainment",
-                    "Food",
-                    "Work",
-                    "Subscriptions",
-                    "Utility",
-                    "Travel"
-                ];
-                selected(current-value) => {
-                    if (current-value == "Entertainment"){
-                        selected_category = Category.Entertainment
-                    }
-                    if (current-value == "Food"){
-                        selected_category = Category.Food
-                    }
-                    if (current-value == "Work"){
-                        selected_category = Category.Work
-                    }
-                    if (current-value == "Subscriptions"){
-                        selected_category = Category.Subscriptions
-                    }
-                    if (current-value == "Travel"){
-                        selected_category = Category.Travel
-                    }
-                    if (current-value == "Utility"){
-                        selected_category = Category.Utility
-                    }
-                    settings.visible = false;
-                    CategoryProps.change_complete = true;
-                }
-            }
-        }
-    }
+    //         Text {
+    //             text: "Select Category.";
+    //             font-size: 20px;
+    //             color: green;
+    //             horizontal-alignment: center;
+    //         }
+    //         ComboBox {
+    //             width: 150px;
+    //             model: [
+    //                 "Entertainment",
+    //                 "Food",
+    //                 "Work",
+    //                 "Subscriptions",
+    //                 "Utility",
+    //                 "Travel"
+    //             ];
+    //             selected(current-value) => {
+    //                 if (current-value == "Entertainment"){
+    //                     selected_category = Category.Entertainment
+    //                 }
+    //                 if (current-value == "Food"){
+    //                     selected_category = Category.Food
+    //                 }
+    //                 if (current-value == "Work"){
+    //                     selected_category = Category.Work
+    //                 }
+    //                 if (current-value == "Subscriptions"){
+    //                     selected_category = Category.Subscriptions
+    //                 }
+    //                 if (current-value == "Travel"){
+    //                     selected_category = Category.Travel
+    //                 }
+    //                 if (current-value == "Utility"){
+    //                     selected_category = Category.Utility
+    //                 }
+    //                 settings.visible = false;
+    //                 CategoryProps.change_complete = true;
+    //             }
+    //         }
+    //     }
+    // }
     
 
     Rectangle {

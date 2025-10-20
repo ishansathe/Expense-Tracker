@@ -7,6 +7,12 @@ export component TotalPage inherits Rectangle {
     visible: false;
 
     in-out property <int> total : 5;
+    in-out property <int> e_total <=> entertainment.expense;
+    in-out property <int> w_total <=> work.expense;
+    in-out property <int> t_total <=> travel.expense;
+    in-out property <int> u_total <=> utility.expense;
+    in-out property <int> s_total <=> subscription.expense;
+    in-out property <int> f_total <=> food.expense;
 
     Rectangle {
         x: 100px;
@@ -56,19 +62,19 @@ export component TotalPage inherits Rectangle {
         spacing-vertical: 25px;
 
         Row {
-            Category {
+            food:= Category {
                 image_path: @image-url("../../logos/food logo.svg");
                 category: "Food";
                 expense: 25;
             }
 
-            Category {
+            utility:= Category {
                 image_path: @image-url("../../logos/utility logo.svg");
                 category: "Utility";
                 expense: 450;
             }
 
-            Category {
+            travel:= Category {
                 image_path: @image-url("../../logos/travel logo.svg");
                 category: "Travel";
                 expense: 300;
@@ -76,21 +82,21 @@ export component TotalPage inherits Rectangle {
         }
         
         Row {
-            Category {
+            subscription:= Category {
                 image_path: @image-url("../../logos/subscription logo.svg");
                 category: "Subscription";
                 expense: 25;
             }
 
-            Category {
+            entertainment:= Category {
                 image_path: @image-url("../../logos/entertainment logo.svg");
                 category: "Entertainment";
                 expense: 450;
             }
 
-            Category {
+            work:= Category {
                 image_path: @image-url("../../logos/ghost logo.svg");
-                category: "Unknown";
+                category: "Work";
                 expense: 300;
             }
         }

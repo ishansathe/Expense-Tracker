@@ -96,3 +96,40 @@ pub fn read_from_file() -> Vec<Vec<String>> {
 
     return name_cost_category_vectors;
 }
+
+
+pub fn calculate_total() -> i32 {
+    let item_file = fs::read_to_string("ItemDetails.json").unwrap();
+
+    let item_file_json  = from_str::<Vec<ItemInfo>>(&item_file).unwrap();
+    // println!("{:?}", item_file_json);
+
+    let mut total: i32 = 0;
+
+    for i in 0 .. item_file_json.len() {
+        total += item_file_json[i].cost
+            .parse::<i32>()
+            .unwrap();
+    }
+
+    return total;
+}
+
+pub fn get_budgets( _category: &str ) -> i32 {
+
+    let items_file = fs::read_to_string("ItemDetails.json").unwrap();
+
+    let items_file_json = from_str::<Vec<ItemInfo>>(&items_file).unwrap();
+
+    let mut category_total : i32 = 0;
+
+    for i in 0 .. items_file_json.len() {
+        if items_file_json[i].category == _category {
+            category_total += items_file_json[i].cost
+                .parse::<i32>()
+                .unwrap();
+        }
+    }
+
+    return category_total;
+}

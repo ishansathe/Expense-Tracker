@@ -28,6 +28,12 @@ slint::slint!{
         callback getExpenses();
 
         in-out property <int> total <=> totalpage.total;
+        in-out property <int> food_total <=> totalpage.f_total;
+        in-out property <int> work_total <=> totalpage.w_total;
+        in-out property <int> subscription_total <=> totalpage.s_total;
+        in-out property <int> entertainment_total <=> totalpage.e_total;
+        in-out property <int> utility_total <=> totalpage.u_total;
+        in-out property <int> travel_total <=> totalpage.t_total;
         callback getTotal();
 
         // The 'getExpenses' callback will initiate a function at the backend
@@ -248,15 +254,29 @@ fn main() {
 
             let in_box = get_total_weak_box_clone.upgrade().unwrap();
 
-            let total = calculate_total::get_total();
+            let total = file_mgmt::calculate_total();
+
+            let work_total: i32 = file_mgmt::get_budgets("Work");
+            let travel_total: i32 = file_mgmt::get_budgets("Travel");
+            let utility_total: i32 = file_mgmt::get_budgets("Utility");
+            let food_total : i32 = file_mgmt::get_budgets("Food");
+            let entertainment_total: i32 = file_mgmt::get_budgets("Entertainment");
+            let subscriptions_total: i32 = file_mgmt::get_budgets("Subscriptions");
 
             in_box.set_total(total);
+
+            in_box.set_entertainment_total(entertainment_total);
+            in_box.set_food_total(food_total);
+            in_box.set_subscription_total(subscriptions_total);
+            in_box.set_travel_total(travel_total);
+            in_box.set_utility_total(utility_total);
+            in_box.set_work_total(work_total);
         }
     });
 
     obox.run().unwrap();
 
-    file_mgmt::read_from_file();
+    file_mgmt::get_budgets("Food");
 
 
     // serdes::serialize_struct_into_json();

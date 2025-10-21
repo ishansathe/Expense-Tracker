@@ -18,5 +18,10 @@
     "category": "Utility",
     "cost": "4000",
     "name": "Light"
+  },
+  {
+    "category": "Food",
+    "cost": "124",
+    "name": "Eggs and Bread"
   }
 ]

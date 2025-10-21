@@ -20,6 +20,7 @@ export component ItemContainer inherits Rectangle {
         height: 65px;
 
         category_edit:= Rectangle {
+            visible: false;
             width: 25px;
             height: 25px;
             x: 20px;
@@ -53,6 +54,16 @@ export component ItemContainer inherits Rectangle {
             width: 160px;
             background: white;
             ComboBox {
+
+                current-value: {
+                    icategory.category == Category.Entertainment ? 
+                        "Entertainment" : icategory.category == Category.Food ?
+                        "Food" : icategory.category == Category.Work ?
+                        "Work" : icategory.category == Category.Subscriptions ?
+                        "Subscriptions" : icategory.category == Category.Utility ?
+                        "Utility" : "Travel"
+                }
+
                 model: [
                     "Entertainment",
                     "Food",
@@ -95,7 +106,6 @@ export component ItemContainer inherits Rectangle {
                 red : blue  //work is blue!
             }
 
-
             iname := ItemInfo {
                 height: parent.height;
                 info_x: 0px;
@@ -108,7 +118,7 @@ export component ItemContainer inherits Rectangle {
         }
 
         editInfo:= Rectangle{
-            x: 360px;
+            x: 350px;
             width: 23px;
             height: 23px;
             y: 0;
@@ -117,7 +127,7 @@ export component ItemContainer inherits Rectangle {
 
             border-color: black;
             border-radius: 15px;
-            border-width: 1px;
+            border-width: 2px;
             Image {
                 width: 17px;
                 height: 17px;
@@ -128,12 +138,14 @@ export component ItemContainer inherits Rectangle {
 
                 colorize: black;
 
-                TouchArea {
+                editInfoTouch := TouchArea {
                     clicked => {
 
                         // If the text is indeed being updated, then reverse this.
                         if (editInfo.beingEdited) {
                             editInfo.beingEdited = false;
+
+                            category_edit.visible = false;
 
                             iname.beingEdited = false;
                             iname.read-only = true;
@@ -148,12 +160,49 @@ export component ItemContainer inherits Rectangle {
                         if (!editInfo.beingEdited) {
                             editInfo.beingEdited = true;
 
+                            category_edit.visible = true;
+                            cross_info.visible = true;
+
                             iname.beingEdited = true;
                             iname.read-only = false;
 
                             icost.beingEdited = true;
                             icost.read-only = false;
 
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        cross_info:= Rectangle{
+            visible: false;
+            x: 380px;
+            y: 0;
+            z: 1;
+            width: 23px;
+            height: 23px;
+            border-radius: 12px; border-width: 1px; border-color: black;
+
+            Image {
+                width: 15px;
+                height: 15px;
+                source: @image-url("../../logos/cross logo.svg");
+                TouchArea {
+                    clicked => {
+                        // If the text is indeed being updated, then reverse this.
+                        if (editInfo.beingEdited) {
+                            editInfo.beingEdited = false;
+
+                            category_edit.visible = false;
+                            cross_info.visible = false;
+
+                            iname.beingEdited = false;
+                            iname.read-only = true;
+
+                            icost.beingEdited = false;
+                            icost.read-only = true;
+                            
                             return;
                         }
                     }

@@ -134,7 +134,11 @@ slint::slint!{
             }
         }
 
-        viewpage:= ViewPage {}
+        viewpage:= ViewPage {
+            resetTempChanges => {
+                root.getExpenses();
+            }
+        }
 
         totalpage := TotalPage {}
 

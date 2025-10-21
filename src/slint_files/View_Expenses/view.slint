@@ -23,6 +23,8 @@ export component ViewPage inherits Rectangle {
         }
     ];
 
+    callback resetTempChanges();
+
     Rectangle {
         x: 100px;
         y: 0;
@@ -96,6 +98,7 @@ export component ViewPage inherits Rectangle {
                     item_name: items.name;
                     item_cost: items.cost;
                     item_category: items.category;
+                    item_index: i;
                     // change_category => {
                     //     settings.visible = true;
                     //     self.changing_category = true;
@@ -105,6 +108,10 @@ export component ViewPage inherits Rectangle {
                     //         return;
                     //     }
                     // }
+
+                    resetItemChanges => {
+                        resetTempChanges();
+                    }
                 }
             }
         }

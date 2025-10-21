@@ -15,6 +15,9 @@ export component ItemContainer inherits Rectangle {
     in-out property <string> item_cost <=> icost.text;
     in-out property <Category> item_category <=> icategory.category;
 
+    // Keeping the same name as parent.
+    callback resetItemChanges();
+
     // Main Rectangle
     Rectangle {
         height: 65px;
@@ -202,6 +205,8 @@ export component ItemContainer inherits Rectangle {
 
                             icost.beingEdited = false;
                             icost.read-only = true;
+
+                            resetItemChanges();
                             
                             return;
                         }

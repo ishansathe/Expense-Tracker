@@ -15,6 +15,8 @@ export component ItemContainer inherits Rectangle {
     in-out property <string> item_cost <=> icost.text;
     in-out property <Category> item_category <=> icategory.category;
 
+    callback setItemChanges();
+
     // Keeping the same name as parent.
     callback resetItemChanges();
 
@@ -144,21 +146,6 @@ export component ItemContainer inherits Rectangle {
                 editInfoTouch := TouchArea {
                     clicked => {
 
-                        // If the text is indeed being updated, then reverse this.
-                        if (editInfo.beingEdited) {
-                            editInfo.beingEdited = false;
-
-                            category_edit.visible = false;
-
-                            iname.beingEdited = false;
-                            iname.read-only = true;
-
-                            icost.beingEdited = false;
-                            icost.read-only = true;
-                            
-                            return;
-                        }
-
                         // If text is NOT being updated, then reverse this.
                         if (!editInfo.beingEdited) {
                             editInfo.beingEdited = true;
@@ -171,6 +158,24 @@ export component ItemContainer inherits Rectangle {
 
                             icost.beingEdited = true;
                             icost.read-only = false;
+
+                            return;
+                        }
+
+                        // If the text is indeed being updated, then reverse this and set the changes.
+                        if (editInfo.beingEdited) {
+                            editInfo.beingEdited = false;
+
+                            category_edit.visible = false;
+                            cross_info.visible = false;
+
+                            iname.beingEdited = false;
+                            iname.read-only = true;
+
+                            icost.beingEdited = false;
+                            icost.read-only = true;
+                            
+                            setItemChanges();
 
                             return;
                         }

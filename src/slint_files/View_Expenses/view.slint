@@ -23,6 +23,8 @@ export component ViewPage inherits Rectangle {
         }
     ];
 
+    callback setChanges(int, string, string, Category);
+
     callback resetTempChanges();
 
     Rectangle {
@@ -99,6 +101,15 @@ export component ViewPage inherits Rectangle {
                     item_cost: items.cost;
                     item_category: items.category;
                     item_index: i;
+
+                    setItemChanges => {
+                        setChanges(
+                            self.item_index,
+                            self.item_name, 
+                            self.item_cost, 
+                            self.item_category
+                            );
+                    }
 
                     resetItemChanges => {
                         resetTempChanges();

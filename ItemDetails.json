@@ -1,27 +1,32 @@
 [
   {
-    "category": "Food",
+    "name": "Frankie",
     "cost": "731",
-    "name": "Frankie"
+    "category": "Food"
   },
   {
-    "category": "Work",
+    "name": "Pens",
     "cost": "20",
-    "name": "Pens"
+    "category": "Work"
   },
   {
-    "category": "Food",
+    "name": "Oranges",
     "cost": "50",
-    "name": "Oranges"
+    "category": "Food"
   },
   {
-    "category": "Utility",
+    "name": "Light",
     "cost": "4000",
-    "name": "Light"
+    "category": "Utility"
   },
   {
-    "category": "Food",
+    "name": "Eggs and Bread",
     "cost": "124",
-    "name": "Eggs and Bread"
+    "category": "Food"
+  },
+  {
+    "name": "Vase",
+    "cost": "1499",
+    "category": "Entertainment"
   }
 ]

@@ -36,6 +36,13 @@ slint::slint!{
         in-out property <int> travel_total <=> totalpage.t_total;
         callback getTotal();
 
+
+        in-out property <int> changing_item_index : 0;
+        in-out property <string> changing_item_name;
+        in-out property <string> changing_item_cost;
+        in-out property <string> changing_item_category;
+        callback setChanges();
+
         // The 'getExpenses' callback will initiate a function at the backend
         // within which, the item details will be read and fed into the function 'callExpenses'
         public function updateExpenses(itemInfo: [ItemDetail]) {
@@ -135,6 +142,32 @@ slint::slint!{
         }
 
         viewpage:= ViewPage {
+            setChanges (changing_index, changing_name, changing_cost, changing_category) => {
+                root.changing_item_index = changing-index;
+                root.changing_item_name = changing_name;
+                root.changing_item_cost = changing_cost;
+
+                if (changing-category == Category.Entertainment) {
+                    root.changing_item_category = "Entertainment";
+                }
+                if (changing-category == Category.Food) {
+                    root.changing_item_category = "Food";
+                }
+                if (changing-category == Category.Subscriptions) {
+                    root.changing_item_category = "Subscriptions";
+                }
+                if (changing-category == Category.Travel) {
+                    root.changing_item_category = "Travel";
+                }
+                if (changing-category == Category.Utility) {
+                    root.changing_item_category = "Utility";
+                }
+                if (changing-category == Category.Work) {
+                    root.changing_item_category = "Work";
+                }
+
+                root.setChanges();
+            }
             resetTempChanges => {
                 root.getExpenses();
             }
@@ -146,11 +179,13 @@ slint::slint!{
 }
 
 mod file_mgmt;
-mod calculate_total;
 mod serdes;
 
+use serde_json::to_string_pretty;
 use slint::{VecModel, ModelRc};
-use std::rc::Rc;
+use std::{fs::{self, OpenOptions}, io::Write, rc::Rc};
+
+use crate::serdes::ItemInfo;
 
 fn main() {
 
@@ -162,6 +197,7 @@ fn main() {
     let weak_clicked = weak_box.clone();
     let weak_get_expenses = weak_box.clone();
     let weak_get_total = weak_box.clone();
+    let weak_set_changes = weak_box.clone();
 
     obox.on_clicked(move || {
         println!("Expense Added!");
@@ -278,12 +314,42 @@ fn main() {
         }
     });
 
+        obox.on_setChanges({
+        let set_changes_weak_box_clone = weak_set_changes.clone();
+        move || {
+
+            println!("Changes are being made.");
+            let in_box = set_changes_weak_box_clone.upgrade().unwrap();
+
+            let json_file = fs::read_to_string("ItemDetails.json").unwrap();
+
+            let mut item_list = serde_json::from_str::<Vec<ItemInfo>>(&json_file).unwrap();
+
+            let index: usize = in_box.get_changing_item_index().try_into().unwrap();
+            let new_name = in_box.get_changing_item_name();
+            let new_cost = in_box.get_changing_item_cost();
+            let new_category = in_box.get_changing_item_category();
+
+            item_list[index].name = new_name.to_string();
+            item_list[index].cost = new_cost.to_string();
+            item_list[index].category = new_category.to_string();
+
+            let new_json_list = to_string_pretty(&item_list).unwrap();
+
+            let mut item_details_file = OpenOptions::new()
+                .create(true)
+                .read(true)
+                .write(true)
+                .open("ItemDetails.json")
+                .unwrap();
+
+            let result = item_details_file.write(new_json_list.as_bytes()).unwrap();
+
+            println!("Changes made! Wrote {} bytes to the file", result);
+        }
+    });
+
     obox.run().unwrap();
-
-    file_mgmt::get_budgets("Food");
-
-
-    // serdes::serialize_struct_into_json();
 
     println!("Hello, world!");
 }

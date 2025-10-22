@@ -7,6 +7,7 @@ export component Category inherits VerticalLayout {
     in-out property <string> category;
     in-out property <int> expense;
     in-out property <image> image_path <=> img.source;
+    in-out property <brush> category_color <=> img.colorize;
     img:= Image {
         image-fit: contain;
 
@@ -22,5 +23,7 @@ export component Category inherits VerticalLayout {
     Text {
         text: category + ": " + expense;
         horizontal-alignment: center;
+        font-family: "Century";
+        font-size: 14px;
     }
 } 

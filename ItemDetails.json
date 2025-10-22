@@ -28,5 +28,15 @@
     "name": "Vase",
     "cost": "1499",
     "category": "Entertainment"
+  },
+  {
+    "name": "Petrol",
+    "cost": "1500",
+    "category": "Travel"
+  },
+  {
+    "name": "YouTube Premium",
+    "cost": "89",
+    "category": "Subscriptions"
   }
 ]

@@ -34,6 +34,8 @@ This is the screenshot of view page that shows all the expenses added so far.
 It is possible to edit the Item Name and Item Cost from the view page itself.
 ![View Page edit text](screenshots/view-page-text-edit.png)
 
+<img src="screenshots/view-page-text-edit.png" width="400" height="400">
+
 It is also possible to change the category of the item/expense
 ![View Page change category](screenshots/view-page-category-edit.png)
 

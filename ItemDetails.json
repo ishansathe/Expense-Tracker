@@ -1,42 +1,47 @@
 [
   {
-    "name": "Frankie",
+    "category": "Food",
     "cost": "731",
-    "category": "Food"
+    "name": "Frankie"
   },
   {
-    "name": "Pens",
+    "category": "Work",
     "cost": "20",
-    "category": "Work"
+    "name": "Pens"
   },
   {
-    "name": "Oranges",
+    "category": "Food",
     "cost": "50",
-    "category": "Food"
+    "name": "Oranges"
   },
   {
-    "name": "Light",
+    "category": "Utility",
     "cost": "4000",
-    "category": "Utility"
+    "name": "Light"
   },
   {
-    "name": "Eggs and Bread",
+    "category": "Food",
     "cost": "124",
-    "category": "Food"
+    "name": "Eggs and Bread"
   },
   {
-    "name": "Vase",
+    "category": "Entertainment",
     "cost": "1499",
-    "category": "Entertainment"
+    "name": "Vase"
   },
   {
-    "name": "Petrol",
+    "category": "Travel",
     "cost": "1500",
-    "category": "Travel"
+    "name": "Petrol"
   },
   {
-    "name": "YouTube Premium",
+    "category": "Subscriptions",
     "cost": "89",
-    "category": "Subscriptions"
+    "name": "YouTube Premium"
+  },
+  {
+    "category": "Food",
+    "cost": "700",
+    "name": "Aata"
   }
 ]

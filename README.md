@@ -18,3 +18,24 @@ Features include:
     - Viewing total for each individual category.
     - Color coded categories.
 
+Following is screenshot of the home page:
+![Home Page screenshot.](screenshots/home_page.png)
+
+
+In case only partial input is entered: 
+![Home Page partial](screenshots/home-page-error-handle.png)
+
+When all inputs are filled and submitted correctly!
+![Home Page Successful](screenshots/home-page-correct.png)
+
+This is the screenshot of view page that shows all the expenses added so far.
+![View Page screenshot](screenshots/view-page.png)
+
+It is possible to edit the Item Name and Item Cost from the view page itself.
+![View Page edit text](screenshots/view-page-text-edit.png)
+
+It is also possible to change the category of the item/expense
+![View Page change category](screenshots/view-page-category-edit.png)
+
+Finally, it is possible to view complete total expense and individual category expenses
+![Total Page Screenshot](screenshots/total-page.png)
